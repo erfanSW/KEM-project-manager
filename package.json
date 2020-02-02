@@ -1,0 +1,29 @@
+{
+  "name": "kem",
+  "version": "0.0.1",
+  "description": "KEM project manager",
+  "productName": "KEM project manager",
+  "cordovaId": "org.cordova.quasar.app",
+  "capacitorId": "",
+  "author": "Erfan Chegini <iirfansardivand@gmail.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.5.0",
+    "axios": "^0.18.1",
+    "quasar": "^1.8.5"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.5.3"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
