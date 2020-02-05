@@ -75,6 +75,11 @@ export default {
       leftDrawerOpen: false,
       miniState: true
     };
+  },
+  mounted() {
+    if (!this.$store.getters['account/isUserLoggedIn']) {
+      this.$route.push('/login')
+    }
   }
 };
 </script>

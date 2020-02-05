@@ -4,7 +4,9 @@ export default function () {
     new_task_modal: false,
     new_project_modal: false,
     new_team_modal: false,
+
+    view_project_modal: false,
     view_task_modal: false,
-    view_task_data: false
+    view_task_data: false,
   }
 }

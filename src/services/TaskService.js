@@ -1,8 +1,12 @@
 import Api from "./Api";
 
 export default {
-  getTasks() {
-    let id = 1
-    Api().get(`tasks/${id}`)
+  getTasks(token) {
+    console.log(token)
+    return Api().get(`tasks`, {
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
   }
 }

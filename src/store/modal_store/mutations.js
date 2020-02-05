@@ -22,9 +22,18 @@ export function showNewTeamModal (state) {
 export function closeNewTeamModal (state) {
     state.new_team_modal = false
 }
+
 export function viewTaskModal (state) {
   state.view_task_modal = true
 }
 export function closeTaskModal (state) {
   state.view_task_modal = false
+}
+
+export function viewProjectModal (state) {
+  state.view_project_modal = true
+}
+
+export function closeViewProjectModal (state) {
+  state.view_project_modal = false
 }

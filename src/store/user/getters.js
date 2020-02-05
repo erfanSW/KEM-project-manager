@@ -9,3 +9,7 @@ export function token(state) {
 export function isUserLoggedIn(state) {
   return state.isUserLoggedIn
 }
+
+export function user_id(state) {
+  return state.user.id
+}

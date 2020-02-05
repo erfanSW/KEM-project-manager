@@ -35,3 +35,11 @@ export function viewTaskModal ({commit}) {
 export function closeTaskModal ({commit}) {
   commit("closeTaskModal")
 }
+
+export function viewProjectModal ({commit}) {
+  commit("viewProjectModal")
+}
+
+export function closeViewProjectModal ({commit}) {
+  commit("closeViewProjectModal")
+}

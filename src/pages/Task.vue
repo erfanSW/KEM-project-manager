@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import ProjectService from "../services/ProjectService";
+import TaskService from "../services/TaskService";
+import {mapActions,mapGetters} from 'vuex'
 
 export default {
   name: "PageIndex",
@@ -24,18 +25,23 @@ export default {
   data() {
     return {
       show_new_task: false,
-      tasks: [{
-        name: 'از بین بردن داعش',
-        performer: 'سردار سلیمانی'
-      }]
+      tasks: []
     };
+  },
+  computed: {
+    ...mapGetters('account',
+      [
+        'token'
+      ]
+    )
   },
   methods: {
     open_newTask() {
       this.$store.dispatch('ms/showModal')
     },
-    testApi() {
-      ProjectService.getiin().then((res) => {
+    getAll() {
+      TaskService.getTasks(this.token)
+        .then((res) => {
         console.log(res)
         this.tasks = res.data
       })
@@ -45,7 +51,7 @@ export default {
     }
   },
   mounted() {
-      this.testApi()
+      this.getAll()
   }
 };
 </script>

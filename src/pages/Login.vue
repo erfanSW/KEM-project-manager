@@ -9,14 +9,14 @@
       <q-card-section class="card-title text-white q-mt-md">
         <div class="row a-pa-md">
           <div class="col-6 q-mr-xl">
-            <q-input type="text" label="نام کاربری" stack-label></q-input>
-            <q-input class="q-mt-sm" type="password" label="کلمه عبور" stack-label></q-input>
+            <q-input type="text" label="نام کاربری" v-model="user.email" stack-label></q-input>
+            <q-input class="q-mt-sm" type="password" label="کلمه عبور" v-model="user.password" stack-label></q-input>
             <q-checkbox
               class="text-indigo-5 q-mt-lg"
               v-model="cb"
               label="قوانین و مقررات را میپذیرم"
             />
-            <q-btn outline class="text-indigo q-mt-lg full-width" label="ورود"></q-btn>
+            <q-btn outline class="text-indigo q-mt-lg full-width"  :disable="!cb" label="ورود" @click="login"></q-btn>
           </div>
           <img
             class="col-6 q-ml-lg"
@@ -32,15 +32,45 @@
 </template>
 
 <script>
+import AuthenticationService from "../services/AuthenticationService";
+import {mapActions} from "vuex";
+
 export default {
   data() {
     return {
-      cb: false
+      cb: false,
+      user: {
+        email: null,
+        password: null
+      }
     };
   },
   methods: {
+    // ...mapActions('auth', [
+    //   'login',
+    //   'logout'
+    // ]),
     back() {
       this.$router.go(-1);
+    },
+    login() {
+      AuthenticationService
+        .login(this.user)
+        .then((res) => {
+          this.$store.dispatch('account/login',res.data)
+          this.back()
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+    },
+    logout() {
+
+    }
+  },
+  beforeCreate() {
+    if (this.$store.getters['account/isUserLoggedIn']) {
+      this.$router.go(-1)
     }
   }
 };

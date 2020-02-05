@@ -2,9 +2,10 @@
 export function someMutation (state) {
 }
 */
-export function login(state,user,token) {
-  state.user = user
-  state.token = token
+export function login(state,data) {
+  console.log(data)
+  state.user = data.user
+  state.token = data.token
   state.isUserLoggedIn = true
 }
 

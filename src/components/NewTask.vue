@@ -17,7 +17,7 @@
 
                   v-model="model"
                   :options="options"
-                  label="افراد مشترک"
+                  label="توسط"
                   stack-label
                   multiple
                   emit-value
@@ -40,11 +40,11 @@
               </div>
             </div>
             <!-- date -->
-            <q-input class="q-mt-md" v-model="date">
+            <q-input class="q-mt-md" v-model="task.dueDate">
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-date v-model="date" color="indigo-5" class="bg-indigo-5 text-white" calendar="persian" mask="YYYY-MM-DD HH:mm" />
+                    <q-date v-model="task.dueDate" color="indigo-5" class="bg-indigo-5 text-white" calendar="persian" mask="YYYY-MM-DD HH:mm" />
                   </q-popup-proxy>
                 </q-icon>
               </template>
@@ -59,7 +59,8 @@
             </q-input>
             <!-- date -->
             <!-- select option -->
-            <q-input class="q-mt-md" label="توضیحات" stack-label type="textarea" />
+            <q-input type="text" label="علت تعیین زمان" class="q-mt-md" autogrow stack-label  />
+            <q-input type="textarea" label="توضیحات" class="q-mt-md" stack-label  />
           </div>
           <div class="col-12 col-sm-4 q-ml-xl">
             <q-file clearable color="white" standout bottom-slots label="پیوست" counter>
@@ -67,8 +68,20 @@
                 <q-icon name="attach_file" />
               </template>
             </q-file>
-            <img src="" alt="">
-            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:70%;">ایجاد</q-btn>
+            <q-select
+              filled
+              use-input
+              use-chips
+              multiple
+              input-debounce="0"
+              v-model="task.tags"
+              @new-value="createValue"
+              :options="filterOptions"
+              @filter="filterFn"
+              label="تگ"
+              stack-label
+            />
+            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:80%;">ایجاد</q-btn>
           </div>
         </div>
       </q-card-section>
@@ -79,40 +92,26 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import  tag_select_mixin from '../mixins/tag_select_mixins'
 export default {
   components: {
-    CustomCircle: () => import("./CustomCircle")
   },
+  mixins: [
+    tag_select_mixin
+  ],
   data() {
     return {
-      redchecked: true,
-      greenchecked: false,
-      blueckecked: false,
-      orangeckecked: false,
-      date: null,
-      model: [],
-      options: [
-        {
-          label: "عرفان چگینی",
-          value: "sw",
-          icon: "menu"
-        },
-        {
-          label: "مهدی خان محمدی",
-          value: "khan",
-          icon: "bluetooth"
-        },
-        {
-          label: "محمد مهدی مروی",
-          value: "mmm",
-          icon: "map"
-        },
-        {
-          label: "میلاد عبداللهی",
-          value: "mb",
-          icon: "golf_course"
-        }
-      ]
+      task: {
+        subject: null,
+        description: null,
+        owner: null,
+        project: null,
+        tags: [],
+        dueDate: null,
+        dueDescription: null,
+        assignedTo: null,
+        status: null,
+      }
     };
   },
   props: {},

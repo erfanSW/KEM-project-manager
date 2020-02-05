@@ -1,17 +1,16 @@
 import Api from "./Api";
 
 function login(user) {
-  return Api().get('account/login',{
-    data: {
-      username: user.username,
-      password: user.password
-    }
+  console.log(user.email + " " + user.password)
+  return Api().post('account/login',{
+    email: user.email,
+    password: user.password
   })
 }
 
-function logout() {
+function logout(token) {
   return Api().get('account/logout',{
-    Authorization: 'Token ' + this.$store.getters['user/getToken']
+    Authorization: 'Token ' + token
   })
 }
 

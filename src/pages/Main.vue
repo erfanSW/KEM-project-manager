@@ -8,7 +8,8 @@
         <q-btn flat>رزومه ها</q-btn>
         <q-btn flat>پلن ها</q-btn>
         <q-btn flat class="bg-indigo-5 text-white">اسپانسر پرومن شوید!</q-btn>
-        <q-btn flat :to="{path:'login'}">ورود</q-btn>
+        <q-btn flat v-if="!isUserLoggedIn" :to="{path:'login'}">ورود</q-btn>
+        <q-btn flat v-else @click="_logout">خروج</q-btn>
       </div>
     </div>
     <!-- <q-btn flat outline class=" text-indigo absolute-center q-mt-xl">همین حالا تیم فضایی خودت رو بساز!</q-btn> -->
@@ -54,7 +55,16 @@
 </template>
 
 <script>
+import {mapState,mapActions} from 'vuex'
+
 export default {
+  computed:{
+    ...mapState('account',
+    [
+      'isUserLoggedIn'
+    ]
+    )
+  },
   methods: {
     scrollDown() {
       window.scrollBy({
@@ -62,9 +72,18 @@ export default {
         behavior: "smooth"
       });
     },
+    ...mapActions('account',
+      [
+        'logout'
+      ]
+    ),
+    _logout() {
+      this.logout()
+    }
   },
   mounted() {
-  }
+  },
+
 };
 </script>
 

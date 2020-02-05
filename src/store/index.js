@@ -4,6 +4,9 @@ import Vuex from 'vuex'
 // import example from './module-example'
 import modal_store from './modal_store/index'
 import user from './user/index'
+import observer_store from './observer_store/index'
+
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -18,10 +21,12 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
+    plugins: [createPersistedState()],
     modules: {
       // example
       ms : modal_store,
-      user: user
+      account: user,
+      os: observer_store
     },
 
     // enable strict mode (adds overhead!)
