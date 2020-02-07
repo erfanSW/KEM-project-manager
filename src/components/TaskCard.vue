@@ -3,7 +3,7 @@
     <q-card class="my-card task-container">
       <q-card-section :style="{'background-color':color}" class="card-title text-white q-mt-md">
         <div class="text-h6">{{task.name}}</div>
-        <div class="text-subtitle2">مسئول : {{task.performer}}</div>
+        <div class="text-subtitle2">{{task.subject}}</div>
       </q-card-section>
       <q-card-actions align="around">
         <q-chat-message
@@ -39,6 +39,9 @@ export default {
 .task-container {
   height: 170px !important;
   width: 300px;
+}
+.task-container:hover {
+  cursor: pointer;
 }
 .card-title {
   /* background-image: linear-gradient(to left, #c9ffbf, #ffafbd) !important; */

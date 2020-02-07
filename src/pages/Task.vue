@@ -4,10 +4,11 @@
       <div class="col-lg-2 col-md-4 col-sm-6">
         <banner @click="open_newTask" name="در حال انجام">
         </banner>
-        <task-card class="taskcard" v-for="task in tasks" :key="task.id" :task="task" @click.native="$router.go(0)"></task-card>
+        <task-card class="taskcard" v-for="task in tasks" :key="task.id" :task="task" @click.native="taskcardaction(task)"></task-card>
       </div>
     </div>
     <new-task></new-task>
+    <view-task :task="viewTask" ></view-task>
   </q-page>
 </template>
 
@@ -20,12 +21,14 @@ export default {
   components: {
     TaskCard: () => import("../components/TaskCard"),
     Banner: () => import("../components/Banner"),
-    NewTask: () => import("../components/NewTask")
+    NewTask: () => import("../components/NewTask"),
+    ViewTask: () => import("../components/ViewTask")
   },
   data() {
     return {
       show_new_task: false,
-      tasks: []
+      tasks: [],
+      viewTask: {}
     };
   },
   computed: {
@@ -33,11 +36,17 @@ export default {
       [
         'token'
       ]
-    )
+    ),
   },
   methods: {
+    ...mapActions('ms',
+      [
+        'showModal',
+        'viewTaskModal'
+      ]
+    ),
     open_newTask() {
-      this.$store.dispatch('ms/showModal')
+      this.showModal()
     },
     getAll() {
       TaskService.getTasks(this.token)
@@ -48,6 +57,11 @@ export default {
       .catch((err) => {
         console.log(err.response)
       })
+    },
+    taskcardaction(task) {
+      this.viewTask = task
+      console.log(this.viewTask)
+      this.viewTaskModal()
     }
   },
   mounted() {

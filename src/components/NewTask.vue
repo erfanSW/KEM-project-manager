@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="show" transition-show="flip-down" transition-hide="flip-up">
+  <q-dialog v-model="show" transition-show="fade" transition-hide="fade">
     <q-card class="bg-white text-black card">
       <q-bar class="bg-indigo-5">
         <q-space />
@@ -81,7 +81,7 @@
               label="تگ"
               stack-label
             />
-            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:80%;">ایجاد</q-btn>
+            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:60%;">ایجاد</q-btn>
           </div>
         </div>
       </q-card-section>

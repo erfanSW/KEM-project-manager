@@ -11,7 +11,7 @@
           :key="project.id"
           class="col-md-3 col-sm-6 col-xs-12 q-mr-md q-mt-md project-card"
         >
-          <q-img src="../statics/undraw_work_together_h63l.svg" @click="imgaction(project)" :ratio="20/9">
+          <q-img src="../statics/undraw_work_together_h63l.svg" @click="imgaction(project)" :ratio="16/9" contain>
             <div class="absolute-bottom text-center">{{project.name}}</div>
           </q-img>
         </div>
@@ -43,7 +43,7 @@ import {mapActions,mapGetters} from 'vuex'
 export default {
   components: {
     NewProject: () => import("../components/NewProject"),
-    ViewProject: () => import("../components/ViewProject")
+    ViewProject: () => import("../components/RUProject/ViewProject")
   },
   data() {
     return {
@@ -82,7 +82,8 @@ export default {
     ),
     ...mapActions("ms",
       [
-        'viewProjectModal'
+        'viewProjectModal',
+        'closeViewProjectModal'
       ]
     ),
     getImage(path) {
@@ -90,6 +91,7 @@ export default {
     },
     imgaction(project) {
       this.viewProject = project
+      console.log(this.viewProject)
       this.viewProjectModal()
     },
     open_newProject() {
@@ -105,6 +107,7 @@ export default {
     }
   },
   mounted() {
+    this.closeViewProjectModal()
     this.getAll()
   }
 };

@@ -1,154 +1,122 @@
 <template>
-  <q-dialog v-model="show" transition-show="flip-down" transition-hide="flip-up">
+  <q-dialog v-model="show" transition-show="fade" transition-hide="fade">
     <q-card class="bg-white text-black card">
       <q-bar class="bg-indigo-5">
-        <q-space />
+        <q-space/>
         <q-btn
           dense
           flat
           class="text-white"
           icon="close"
           v-close-popup
-          @click="closeNewProjectModal"
+          @click="closeTaskModal"
         ></q-btn>
       </q-bar>
+      <div>
+        <q-card>
+          <q-card-section>
+            <q-item class="q-mb-md">
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="eco"/>
+              </q-item-section>
+              <q-item-section>
+                <q-input v-if="updateSubject" v-model="task.subject" label="عنوان" stack-label/>
+                <q-item-label v-if="!updateSubject">{{task.subject}}</q-item-label>
+                <div class="row q-mt-xs">
+                  <q-item-label caption @click="updateSubject=!updateSubject" class="custome-cursor">ویرایش</q-item-label>
+                  <q-icon name="done" class="q-ml-md" color="green" v-if="updateSubject" />
+                  <q-icon name="close" class="q-ml-md" color="red" v-if="updateSubject" />
+                </div>
 
-      <q-card-section>
-        <div class="row">
-          <div class="col-6">
-            <q-input label="عنوان" stack-label />
-            <!-- select option -->
-            <div style="max-width: 310px">
-              <div class="q-gutter-md q-mt-md">
-                <q-select
-                  filled
-                  use-input
-                  use-chips
-                  multiple
-                  input-debounce="0"
-                  v-model="model"
-                  @new-value="createValue"
-                  :options="filterOptions"
-                  @filter="filterFn"
-                  label="تگ"
-                  stack-label
-                />
-              </div>
-            </div>
-            <!-- select option -->
-            <div style="max-width: 300px">
-              <div class="q-gutter-md q-mt-md">
-                <q-select
-                  v-model="model_"
-                  :options="options"
-                  label="افراد مشترک"
-                  stack-label
-                  multiple
-                  emit-value
-                  map-options
-                >
-                  <template v-slot:option="scope">
-                    <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                      <q-item-section avatar>
-                        <q-icon :name="scope.opt.icon" />
-                      </q-item-section>
-                      <q-item-section>
-                        <q-item-label v-html="scope.opt.label"></q-item-label>
-                      </q-item-section>
-                      <q-item-section side>
-                        <q-toggle v-model="model" :val="scope.opt.value" />
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-              </div>
-            </div>
-            <q-input class="q-mt-md" label="توضیحات" stack-label type="textarea" />
-          </div>
-          <div class="col-4 q-ml-xl">
-            <div class="row q-mt-xs"></div>
-            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:83%;">ایجاد</q-btn>
-          </div>
-        </div>
-      </q-card-section>
+              </q-item-section>
+            </q-item>
+            <q-item class="q-mb-md">
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="import_contacts"/>
+              </q-item-section>
+              <q-item-section>
+                <div class="">توضیحات</div>
+                <div class="text-caption text-grey">
+                  در این شرایط باید خون سردی خود را حفظ کنیم
+                </div>
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="alarm"/>
+              </q-item-section>
+              <q-item-section>
+                <q-linear-progress stripe color="indigo-5" class="q-mt-md" size="16px" value="0.8"/>
+                <q-item-label caption class="q-mt-xs ">۱۲ روز و ۱۹ ساعت باقیمانده</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item class="q-mt-lg">
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="reply"/>
+              </q-item-section>
+              <q-chat-message
+                avatar="https://cdn.quasar.dev/img/avatar3.jpg"
+                :text="['آقا ریدی با این انجام وظایفت']"
+                bg-color="grey-2"
+                stamp="خان"
+              />
+            </q-item>
+            <q-item>
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="reply"/>
+              </q-item-section>
+              <q-chat-message
+                avatar="https://cdn.quasar.dev/img/avatar5.jpg"
+                :text="['تو گوخوری؟']"
+                bg-color="grey-2"
+                stamp="عرفان"
+              />
+            </q-item>
+            <q-item>
+              <q-item-section avatar>
+                <q-icon color="indigo-5" name="send"/>
+              </q-item-section>
+              <q-item-section class="q-mt-lg">
+                <q-editor min-height="5rem"/>
+              </q-item-section>
+            </q-item>
+          </q-card-section>
+        </q-card>
+      </div>
     </q-card>
   </q-dialog>
 </template>
 
 
 <script>
-  import { mapState, mapActions } from "vuex";
-  const stringOptions = ["it", "علمی", "تخیلی", "تخمی"];
+  import {mapState, mapActions} from "vuex";
+  import tag_select_mixins from "../mixins/tag_select_mixins";
+
   export default {
-    components: {
-      CustomCircle: () => import("./CustomCircle")
-    },
+    components: {},
+    mixins: [tag_select_mixins],
+    props: [
+      'task'
+    ],
     data() {
       return {
-        redchecked: true,
-        greenchecked: false,
-        blueckecked: false,
-        orangeckecked: false,
         model: [],
         model_: [],
-        options: [
-          {
-            label: "عرفان چگینی",
-            value: "sw",
-            icon: "menu"
-          },
-          {
-            label: "مهدی خان محمدی",
-            value: "khan",
-            icon: "bluetooth"
-          },
-          {
-            label: "محمد مهدی مروی",
-            value: "mmm",
-            icon: "map"
-          },
-          {
-            label: "میلاد عبداللهی",
-            value: "mb",
-            icon: "golf_course"
-          }
-        ],
+        options: [],
         model: null,
-
-        filterOptions: stringOptions
+        updateSubject: false
       };
     },
-    props: {},
     computed: {
       ...mapState("ms", {
-        show: state => state.new_project_modal
+        show: state => state.view_task_modal
       })
     },
     mounted() {
     },
     methods: {
-      ...mapActions("ms", ["closeNewProjectModal"]),
-      createValue(val, done) {
-        if (val.length > 0) {
-          if (!stringOptions.includes(val)) {
-            stringOptions.push(val);
-          }
-          done(val, "toggle");
-        }
-      },
-
-      filterFn(val, update) {
-        update(() => {
-          if (val === "") {
-            this.filterOptions = stringOptions;
-          } else {
-            const needle = val.toLowerCase();
-            this.filterOptions = stringOptions.filter(
-              v => v.toLowerCase().indexOf(needle) > -1
-            );
-          }
-        });
-      }
+      ...mapActions("ms", ["closeTaskModal"]),
     }
   };
 </script>
@@ -157,5 +125,9 @@
 <style scoped>
   .card {
     width: 700px;
+  }
+
+  .custome-cursor {
+    cursor: pointer;
   }
 </style>

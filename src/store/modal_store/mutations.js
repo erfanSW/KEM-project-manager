@@ -16,12 +16,12 @@ export function closeNewProjectModal (state) {
     state.new_project_modal = false
 }
 
-export function showNewTeamModal (state) {
-    state.new_team_modal = true
-}
-export function closeNewTeamModal (state) {
-    state.new_team_modal = false
-}
+// export function showNewTeamModal (state) {
+//     state.new_team_modal = true
+// }
+// export function closeNewTeamModal (state) {
+//     state.new_team_modal = false
+// }
 
 export function viewTaskModal (state) {
   state.view_task_modal = true
