@@ -57,6 +57,14 @@
             <q-item-label>تیم ها</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable tag="a" :to="{path:'note'}">
+          <q-item-section avatar>
+            <q-icon color="blue-grey-8" name="notes" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>یادداشت ها</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 

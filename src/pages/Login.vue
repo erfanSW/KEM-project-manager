@@ -16,7 +16,11 @@
               v-model="cb"
               label="قوانین و مقررات را میپذیرم"
             />
-            <q-btn outline class="text-indigo q-mt-lg full-width"  :disable="!cb" label="ورود" @click="login"></q-btn>
+            <q-btn outline class="text-indigo q-mt-lg full-width" :loading="login_loading" :disable="!cb" label="ورود" @click="login">
+              <template v-slot:loading>
+                <q-spinner-radio />
+              </template>
+            </q-btn>
           </div>
           <img
             class="col-6 q-ml-lg"
@@ -42,7 +46,8 @@ export default {
       user: {
         email: null,
         password: null
-      }
+      },
+      login_loading: false
     };
   },
   methods: {
@@ -54,14 +59,21 @@ export default {
       this.$router.go(-1);
     },
     login() {
+      this.login_loading = true
       AuthenticationService
         .login(this.user)
         .then((res) => {
+          this.login_loading = false
           this.$store.dispatch('account/login',res.data)
           this.back()
         })
         .catch((error) => {
+          this.login_loading = false
           console.log(error.response)
+          this.$q.notify({
+            message: error.response,
+            color: "red"
+          })
         })
     },
     logout() {

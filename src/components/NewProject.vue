@@ -132,8 +132,17 @@
             color: "red",
             position: "center"
           })
+          if (!this.project.description) {
+            this.$q.notify({
+              message: "لطفا توضیحات پروژه را وارد کنید",
+              color: "red",
+              position: "center"
+            })
+            return;
+          }
           return;
-        } else if (!this.project.description) {
+        }
+        if (!this.project.description) {
           this.$q.notify({
             message: "لطفا توضیحات پروژه را وارد کنید",
             color: "red",

@@ -17,6 +17,10 @@ const routes = [{
         path: '/team',
         component: () => import('pages/Team.vue')
       },
+      {
+        path: '/note',
+        component: () => import('pages/Note.vue')
+      }
     ]
   },
   {
