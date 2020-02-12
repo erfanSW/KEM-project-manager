@@ -23,9 +23,10 @@
                 <q-input v-if="updateSubject" v-model="task.subject" label="عنوان" stack-label/>
                 <q-item-label v-if="!updateSubject">{{task.subject}}</q-item-label>
                 <div class="row q-mt-xs">
-                  <q-item-label caption @click="updateSubject=!updateSubject" class="custome-cursor">ویرایش</q-item-label>
-                  <q-icon name="done" class="q-ml-md" color="green" v-if="updateSubject" />
-                  <q-icon name="close" class="q-ml-md" color="red" v-if="updateSubject" />
+                  <q-item-label caption @click="updateSubject=!updateSubject" class="custome-cursor">ویرایش
+                  </q-item-label>
+                  <q-icon name="done" class="q-ml-md" color="green" v-if="updateSubject"/>
+                  <q-icon name="close" class="q-ml-md" color="red" v-if="updateSubject"/>
                 </div>
 
               </q-item-section>
@@ -46,39 +47,33 @@
                 <q-icon color="indigo-5" name="alarm"/>
               </q-item-section>
               <q-item-section>
-                <q-linear-progress stripe color="indigo-5" class="q-mt-md" size="16px" value="0.8"/>
+                <q-linear-progress stripe color="indigo-5" class="q-mt-md" size="16px" :value="0.4"/>
                 <q-item-label caption class="q-mt-xs ">۱۲ روز و ۱۹ ساعت باقیمانده</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item class="q-mt-lg">
+            <q-item class="q-mt-lg" v-for="(cm,index) in comments" :key="index">
               <q-item-section avatar>
                 <q-icon color="indigo-5" name="reply"/>
               </q-item-section>
               <q-chat-message
                 avatar="https://cdn.quasar.dev/img/avatar3.jpg"
-                :text="['آقا ریدی با این انجام وظایفت']"
+                :text="[cm.text]"
                 bg-color="grey-2"
                 stamp="خان"
               />
             </q-item>
+
             <q-item>
               <q-item-section avatar>
-                <q-icon color="indigo-5" name="reply"/>
-              </q-item-section>
-              <q-chat-message
-                avatar="https://cdn.quasar.dev/img/avatar5.jpg"
-                :text="['تو گوخوری؟']"
-                bg-color="grey-2"
-                stamp="عرفان"
-              />
-            </q-item>
-            <q-item>
-              <q-item-section avatar>
-                <q-icon color="indigo-5" name="send"/>
+                <q-btn flat icon="send" :loading="add_cm_loading" color="indigo-5" @click="add_comment">
+                  <template v-slot:loading>
+                    <q-spinner-radio />
+                  </template>
+                </q-btn>
               </q-item-section>
               <q-item-section class="q-mt-lg">
-                <q-editor min-height="5rem"/>
+                <q-editor min-height="5rem" v-model="comment.text"/>
               </q-item-section>
             </q-item>
           </q-card-section>
@@ -92,6 +87,7 @@
 <script>
   import {mapState, mapActions} from "vuex";
   import tag_select_mixins from "../mixins/tag_select_mixins";
+  import TaskService from "../services/TaskService";
 
   export default {
     components: {},
@@ -104,20 +100,57 @@
         model: [],
         model_: [],
         options: [],
+        comments: [],
         model: null,
-        updateSubject: false
+        updateSubject: false,
+        comment: {
+          user: null,
+          text: "",
+          task: null
+        },
+        add_cm_loading: false
       };
     },
     computed: {
       ...mapState("ms", {
         show: state => state.view_task_modal
-      })
+      }),
+      ...mapState("account", [
+        'token',
+        'user'
+      ])
     },
     mounted() {
+      this.get_comments()
+    },
+    updated() {
+      this.get_comments()
     },
     methods: {
       ...mapActions("ms", ["closeTaskModal"]),
-    }
+      add_comment() {
+        this.add_cm_loading = true
+        this.comment.user = this.user.id
+        this.comment.task = this.$props.task.id
+        TaskService.add_comment(this.token, this.comment)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err.response)
+          })
+        this.add_cm_loading = false
+      },get_comments() {
+        if (this.$props.task.id){
+          TaskService
+            .get_comments(this.token,this.$props.task.id)
+            .then((res)=> {
+              this.comments = res.data
+            })
+        }
+      }
+    },
+
   };
 </script>
 
@@ -126,7 +159,6 @@
   .card {
     width: 700px;
   }
-
   .custome-cursor {
     cursor: pointer;
   }

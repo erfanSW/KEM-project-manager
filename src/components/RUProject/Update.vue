@@ -21,32 +21,22 @@
       </div>
     </div>
     <!-- select option -->
-    <div >
+    <div>
       <div class="q-gutter-md q-mt-md">
         <q-select
           v-model="project.members"
           label="افراد مشترک"
+          :options="users"
+          :option-label="opt=>opt.email"
+          :option-value="opt=>opt.id"
           stack-label
-          multiple
           emit-value
           map-options
         >
-          <template v-slot:option="scope">
-            <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-              <q-item-section avatar>
-                <q-icon :name="scope.opt.icon"/>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label v-html="scope.opt.label"></q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-toggle v-model="model" :val="scope.opt.value"/>
-              </q-item-section>
-            </q-item>
-          </template>
         </q-select>
       </div>
     </div>
+    <q-btn outline color="indigo-5" class="q-mt-md full-width">افزودن</q-btn>
     <q-input type="textarea" class="q-mt-md" label="توضیحات" v-model="project.description"
              :rules="[val => !!val || 'وارد کردن توضیحات ضروری است']" stack-label/>
     <q-btn color="indigo-5" class="full-width" label="ویرایش"></q-btn>
@@ -55,6 +45,7 @@
 
 <script>
   import tag_select_mixins from "../../mixins/tag_select_mixins";
+  import UsersServices from "../../services/UsersServices";
 
   export default {
     name: "Update",
@@ -64,6 +55,26 @@
     props: [
       'project'
     ],
+    data() {
+      return {
+        users: []
+      }
+    },
+    methods: {
+      get_users() {
+        UsersServices
+          .getUsers()
+          .then((res) => {
+            this.users = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    },
+    mounted() {
+      this.get_users()
+    }
 
   }
 </script>

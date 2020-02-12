@@ -2,7 +2,7 @@
   <q-page class="flex">
     <div class="row inline q-mt-md">
       <div class="col-lg-2 col-md-4 col-sm-6">
-        <banner @click="open_newTask" name="در حال انجام">
+        <banner @click="open_newTask" >
         </banner>
         <task-card class="taskcard" v-for="task in tasks" :key="task.id" :task="task" @click.native="taskcardaction(task)"></task-card>
       </div>
@@ -49,7 +49,7 @@ export default {
       this.showModal()
     },
     getAll() {
-      TaskService.getTasks(this.token)
+      TaskService.getTasks(this.token,this.$route.params.project_id)
         .then((res) => {
         console.log(res)
         this.tasks = res.data

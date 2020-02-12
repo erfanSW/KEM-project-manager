@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="view_project_modal" position="right" transition-show="jump-left" transition-hide="jump-right">
+  <q-dialog v-model="view_project_modal" transition-show="jump-left" transition-hide="jump-right">
     <q-card style="width: 360px">
       <q-bar class="bg-indigo-5">
         <q-btn

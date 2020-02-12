@@ -15,8 +15,6 @@
               <div class="q-gutter-md q-mt-md">
                 <q-select
 
-                  v-model="model"
-                  :options="options"
                   label="توسط"
                   stack-label
                   multiple

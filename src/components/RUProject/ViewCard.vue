@@ -1,7 +1,14 @@
 <template>
   <q-card-section>
-    <div class="text-h6 q-ml-md q-mb-lg text-indigo-5">{{project.name}}</div>
-    <q-item clickable>
+    <router-link class="text-h6 q-ml-lg q-mb-xl text-indigo-5 routerlink" :to="{
+                name: 'task',
+                params: {
+                  project_id: project.id
+                  }
+              }">{{project.name}}
+    </router-link>
+    <q-separator color="indigo-5 q-mt-md"/>
+    <q-item clickable class="q-mt-xl">
       <q-item-section avatar>
         <q-icon color="indigo-5" name="accessibility"/>
       </q-item-section>
@@ -21,16 +28,24 @@
       </q-item-section>
     </q-item>
     <q-separator/>
-    <q-card-actions>
-      <q-btn color="red" text-color="indigo-5" flat round icon="label"/>
-      :
-      {{project.tags.join(' , ')}}
-    </q-card-actions>
+    <q-item clickable>
+      <q-item-section avatar>
+        <q-icon color="indigo-5" name="label"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{project.tags.join(' , ')}}</q-item-label>
+      </q-item-section>
+    </q-item>
     <q-separator/>
-    <q-card-section class="q-pt-xs">
-      <div class="text-overline">توضیحات</div>
-      <div class="text-caption text-grey">{{project.description}}</div>
-    </q-card-section>
+      <q-item>
+        <q-item-section avatar>
+          <q-icon color="indigo-5" name="label"/>
+        </q-item-section>
+        <q-item-section>
+          <div>توضیحات</div>
+          <div class="text-caption text-grey">{{project.description}}</div>
+        </q-item-section>
+      </q-item>
 
   </q-card-section>
 </template>
@@ -45,5 +60,8 @@
 </script>
 
 <style scoped>
-
+  .routerlink {
+    text-decoration: none;
+    margin-top: 100px !important;
+  }
 </style>

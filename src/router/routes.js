@@ -1,29 +1,35 @@
 const routes = [{
-    path: '/',
-    component: () => import('layouts/DashboardLayout.vue'),
-    children: [{
-        path: '',
-        component: () => import('pages/Index.vue')
-      },
-      {
-        path: '/task',
-        component: () => import('pages/Task.vue')
-      },
-      {
-        path: '/project',
-        component: () => import('pages/Project.vue')
-      },
-      {
-        path: '/team',
-        component: () => import('pages/Team.vue')
-      },
-      {
-        path: '/note',
-        component: () => import('pages/Note.vue')
-      }
-    ]
+  path: '/',
+  component: () => import('layouts/DashboardLayout.vue'),
+  props: true,
+  children: [{
+    path: '',
+    component: () => import('pages/Index.vue')
   },
+    {
+      name: 'task',
+      path: '/task/:project_id',
+      component: () => import('pages/Task.vue')
+    },
+    {
+      name: 'project',
+      path: '/project',
+      component: () => import('pages/Project.vue')
+    },
+    {
+      name: 'team',
+      path: '/team',
+      component: () => import('pages/Team.vue')
+    },
+    {
+      name: 'note',
+      path: '/note',
+      component: () => import('pages/Note.vue')
+    }
+  ]
+},
   {
+    name: 'main',
     path: '/main',
     component: () => import('pages/Main.vue')
   },

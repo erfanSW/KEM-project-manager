@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated reveal>
+    <q-header elevated reveal style="opacity: 1">
       <q-toolbar class="bg-indigo-5">
         <q-btn
           flat
@@ -25,7 +25,7 @@
       :breakpoint="500"
     >
       <q-list class="mydrawer">
-        <q-item clickable tag="a" :to="{path:'/main'}">
+        <q-item clickable tag="a" :to="{name:'main'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="home" />
           </q-item-section>
@@ -33,15 +33,7 @@
             <q-item-label>خانه</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" :to="{path:'task'}">
-          <q-item-section avatar>
-            <q-icon color="blue-grey-8" name="queue" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>وظایف</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" :to="{path:'project'}">
+        <q-item clickable tag="a" :to="{name: 'project'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="dashboard" />
           </q-item-section>
@@ -49,7 +41,7 @@
             <q-item-label>پروژه ها</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" :to="{path:'team'}">
+        <q-item clickable tag="a" :to="{name:'team'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="people" />
           </q-item-section>
@@ -57,7 +49,7 @@
             <q-item-label>تیم ها</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" :to="{path:'note'}">
+        <q-item clickable tag="a" :to="{name:'note'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="notes" />
           </q-item-section>
