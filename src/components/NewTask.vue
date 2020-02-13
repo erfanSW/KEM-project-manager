@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="show" transition-show="fade" transition-hide="fade">
-    <q-card class="bg-white text-black card">
+    <q-card class="bg-white text-black card shadow" style="width: 300px;border-radius: 0px 0px 20px 20px;">
       <q-bar class="bg-indigo-5">
         <q-space />
         <q-btn dense flat class="text-white" icon="close" v-close-popup @click="closeModal"></q-btn>
@@ -8,78 +8,43 @@
 
       <q-card-section>
         <div class="row">
-          <div class="col-12 col-sm-6">
-            <q-input label="عنوان" stack-label />
+          <div class="col-12 q-pa-md">
+            <q-input label="عنوان" v-model="task.subject" stack-label />
+            <q-input type="text" autogrow label="توضیحات" class="q-mt-md" v-model="task.description" stack-label  />
             <!-- select option -->
             <div style="max-width: 300px">
               <div class="q-gutter-md q-mt-md">
                 <q-select
-
                   label="توسط"
+                  v-model="task.assigned_to"
+                  :options="members"
+                  :option-label="opt=>opt.id"
+                  :option-value="opt=>opt.id"
                   stack-label
-                  multiple
                   emit-value
                   map-options
                 >
-                  <template v-slot:option="scope">
-                    <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                      <q-item-section avatar>
-                        <q-icon :name="scope.opt.icon" />
-                      </q-item-section>
-                      <q-item-section>
-                        <q-item-label v-html="scope.opt.label"></q-item-label>
-                      </q-item-section>
-                      <q-item-section side>
-                        <q-toggle v-model="model" :val="scope.opt.value" />
-                      </q-item-section>
-                    </q-item>
-                  </template>
                 </q-select>
               </div>
             </div>
             <!-- date -->
-            <q-input class="q-mt-md" v-model="task.dueDate">
+            <q-input class="q-mt-md" v-model="task.due_date">
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-date v-model="task.dueDate" color="indigo-5" class="bg-indigo-5 text-white" calendar="persian" mask="YYYY-MM-DD HH:mm" />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-
-              <template v-slot:append>
-                <q-icon name="access_time" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-time v-model="date" color="indigo-5" class="bg-indigo-5 text-white" mask="YYYY-MM-DD HH:mm" format24h />
+                    <q-date v-model="task.due_date" color="indigo-5" class="bg-indigo-5 text-white" calendar="persian" mask="YYYY-MM-DD HH:mm" />
                   </q-popup-proxy>
                 </q-icon>
               </template>
             </q-input>
             <!-- date -->
             <!-- select option -->
-            <q-input type="text" label="علت تعیین زمان" class="q-mt-md" autogrow stack-label  />
-            <q-input type="textarea" label="توضیحات" class="q-mt-md" stack-label  />
-          </div>
-          <div class="col-12 col-sm-4 q-ml-xl">
-            <q-file clearable color="white" standout bottom-slots label="پیوست" counter>
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
+            <q-input type="text" label="علت تعیین زمان" class="q-mt-md" v-model="task.due_description" autogrow stack-label  />
+            <q-btn class="q-mt-lg bg-indigo-5 text-white full-width" label="ایجاد" :loading="add_task_loading" @click="add_task">
+              <template v-slot:loading>
+                <q-spinner-radio/>
               </template>
-            </q-file>
-            <q-select
-              filled
-              use-input
-              use-chips
-              multiple
-              input-debounce="0"
-              v-model="task.tags"
-              @new-value="createValue"
-              :options="filterOptions"
-              @filter="filterFn"
-              label="تگ"
-              stack-label
-            />
-            <q-btn class="q-mt-sm bg-indigo-5 text-white full-width" style="top:60%;">ایجاد</q-btn>
+            </q-btn>
           </div>
         </div>
       </q-card-section>
@@ -91,11 +56,16 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import  tag_select_mixin from '../mixins/tag_select_mixins'
+import MemberService from "../services/MemberService";
+import TaskService from "../services/TaskService";
 export default {
   components: {
   },
   mixins: [
     tag_select_mixin
+  ],
+  props: [
+    'project'
   ],
   data() {
     return {
@@ -104,32 +74,64 @@ export default {
         description: null,
         owner: null,
         project: null,
-        tags: [],
-        dueDate: null,
-        dueDescription: null,
-        assignedTo: null,
+        due_date: null,
+        due_description: null,
+        due_days: null,
+        assigned_to: null,
         status: null,
-      }
+      },
+      members: [],
+      add_task_loading: false
     };
   },
-  props: {},
   computed: {
     ...mapState("ms", {
       show: state => state.new_task_modal
+    }),
+    ...mapState("account", {
+      owner: state => state.user.id
     })
   },
-  mounted() {
-    console.log(this.show);
-  },
   methods: {
-    ...mapActions("ms", ["closeModal"])
+    ...mapActions("ms", ["closeModal"]),
+    get_members() {
+      MemberService
+        .get_members(this.$props.project)
+        .then((res) => {
+          console.log(res)
+          this.members = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    add_task() {
+      this.task.owner = this.owner;
+      this.task.project = this.$props.project
+      this.add_task_loading = true
+      TaskService
+        .add_task(this.task)
+        .then((res)=> {
+          console.log(res)
+          this.add_task_loading = false
+          this.$q.notify({
+            message: 'با موفقیت ایجاد شد'
+          })
+        })
+        .catch((err) => {
+          this.add_task_loading = false
+          console.log(err)
+        })
+    }
+  },
+  mounted() {
+    console.log(this.$props.project)
+    this.get_members();
   }
 };
 </script>
 
 
 <style scoped>
-.card {
-  width: 700px;
-}
+
 </style>

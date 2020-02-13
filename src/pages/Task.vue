@@ -7,14 +7,14 @@
         <task-card class="taskcard" v-for="task in tasks" :key="task.id" :task="task" @click.native="taskcardaction(task)"></task-card>
       </div>
     </div>
-    <new-task></new-task>
+    <new-task :project="project_id"></new-task>
     <view-task :task="viewTask" ></view-task>
   </q-page>
 </template>
 
 <script>
 import TaskService from "../services/TaskService";
-import {mapActions,mapGetters} from 'vuex'
+import {mapActions,mapGetters , mapState} from 'vuex'
 
 export default {
   name: "PageIndex",
@@ -28,15 +28,28 @@ export default {
     return {
       show_new_task: false,
       tasks: [],
-      viewTask: {}
+      viewTask: {},
     };
   },
   computed: {
     ...mapGetters('account',
       [
         'token'
-      ]
+      ],
     ),
+    ...mapState('ms',[
+      'new_task_modal'
+    ]),
+    project_id: function () {
+      return this.$route.params.project_id
+    }
+  },
+  watch: {
+    new_task_modal: function (val,prevVal) {
+      if (val == false && prevVal == true) {
+        this.getAll();
+      }
+    }
   },
   methods: {
     ...mapActions('ms',
@@ -49,7 +62,7 @@ export default {
       this.showModal()
     },
     getAll() {
-      TaskService.getTasks(this.$route.params.project_id)
+      TaskService.getTasks(this.project_id)
         .then((res) => {
         console.log(res)
         this.tasks = res.data
@@ -66,7 +79,8 @@ export default {
   },
   mounted() {
       this.getAll()
-  }
+  },
+
 };
 </script>
 

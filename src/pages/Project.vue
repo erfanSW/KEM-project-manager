@@ -20,18 +20,18 @@
         </div>
       </div>
     </div>
-    <div class="row q-pa-lg" v-if="initialLoad">
-      <div class="q-ma-xs">
-        <q-skeleton height="200px" width="400px" class="" square/>
-        <q-skeleton class="bg-indigo-5" height="50px" width="400px"/>
+    <div class="row" v-if="initialLoad">
+      <div class="q-mr-md col-md-3 col-sm-6 col-xs-12 q-mt-md project_img">
+        <q-skeleton height="170px" width="330px" class="project_img" square/>
       </div>
-      <div class="q-ma-xs">
-        <q-skeleton height="200px" width="400px" class="" square/>
-        <q-skeleton class="bg-indigo-5" height="50px" width="400px"/>
+      <div class="q-mr-md col-md-3 col-sm-6 col-xs-12 q-mt-md project_img">
+        <q-skeleton height="170px" width="330px" class="project_img" square/>
       </div>
-      <div class="q-ma-xs">
-        <q-skeleton height="200px" width="400px" class="" square/>
-        <q-skeleton class="bg-indigo-5" height="50px" width="400px"/>
+      <div class="q-mr-md col-md-3 col-sm-6 col-xs-12 q-mt-md project_img">
+        <q-skeleton height="170px" width="330px" class="project_img" square/>
+      </div>
+      <div class="q-mr-md col-md-3 col-sm-6 col-xs-12 q-mt-md project_img">
+        <q-skeleton height="170px" width="330px" class="project_img" square/>
       </div>
     </div>
     <new-project></new-project>
@@ -126,7 +126,8 @@
     width: 330px;
     transition: transform 0.5s;
   }
+
   .project_img:hover {
-    transform: scale(1.04,1.04);
+    transform: scale(1.04, 1.04);
   }
 </style>

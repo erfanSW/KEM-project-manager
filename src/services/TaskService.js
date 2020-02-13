@@ -12,6 +12,16 @@ export default {
       }
     })
   },
+  add_task(task) {
+    return Api().post(`tasks/`, task, {
+      params: {
+        project: task.project
+      },
+      headers: {
+        Authorization: 'Token ' + store().getters['account/token']
+      }
+    })
+  },
   add_comment(comment) {
     return Api().post(`comment/`, comment ,{
       headers: {
