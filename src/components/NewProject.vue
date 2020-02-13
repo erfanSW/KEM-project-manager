@@ -134,7 +134,7 @@
           return this.loading = false;
         }
         ProjectService
-          .post(this.project, this.token)
+          .post(this.project)
           .then((res) => {
             console.log(res)
             this.loadprojects_toggle()

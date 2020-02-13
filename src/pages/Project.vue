@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="container" @load="getAll">
+    <div class="q-pa-md" @load="getAll">
       <q-btn outline color="indigo-5" class="q-mt-md q-mb-md q-ml-sm" @click="open_newProject">
         ایجاد پروژه جدید
         <q-icon name="add"/>
@@ -9,10 +9,13 @@
         <div
           v-for="project in projects"
           :key="project.id"
-          class="col-md-3 col-sm-6 col-xs-12 q-mr-md q-mt-md project-card"
+          class="col-md-3 col-sm-6 col-xs-12 q-mt-md project-card"
         >
-          <q-img src="../statics/undraw_work_together_h63l.svg" @click="imgaction(project)" :ratio="16/9" contain>
-            <div class="absolute-bottom text-center">{{project.name}}</div>
+          <q-img src="../assets/undraw_dev_productivity_umsq.svg" @click="imgaction(project)" :ratio="16/9"
+                 class="shadow-6 project_img" contain>
+            <div class="absolute-bottom text-center" style="opacity: 0.9;background-color: white;color:black">
+              {{project.name}}
+            </div>
           </q-img>
         </div>
       </div>
@@ -99,7 +102,7 @@
       },
       getAll() {
         ProjectService
-          .get(this.token)
+          .get()
           .then((res) => {
             this.projects = res.data
             this.initialLoad = false
@@ -116,5 +119,14 @@
 <style scoped>
   .project-card:hover {
     cursor: pointer;
+  }
+
+  .project_img {
+    border-radius: 14px;
+    width: 330px;
+    transition: transform 0.5s;
+  }
+  .project_img:hover {
+    transform: scale(1.04,1.04);
   }
 </style>

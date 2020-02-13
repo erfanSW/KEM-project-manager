@@ -68,7 +68,7 @@
               <q-item-section avatar>
                 <q-btn flat icon="send" :loading="add_cm_loading" color="indigo-5" @click="add_comment">
                   <template v-slot:loading>
-                    <q-spinner-radio />
+                    <q-spinner-radio/>
                   </template>
                 </q-btn>
               </q-item-section>
@@ -124,7 +124,14 @@
       this.get_comments()
     },
     updated() {
-      this.get_comments()
+      // this.get_comments()
+    },
+    watch: {
+      show: function (val, prevVal) {
+        if (val) {
+          this.get_comments()
+        }
+      }
     },
     methods: {
       ...mapActions("ms", ["closeTaskModal"]),
@@ -132,22 +139,23 @@
         this.add_cm_loading = true
         this.comment.user = this.user.id
         this.comment.task = this.$props.task.id
-        TaskService.add_comment(this.token, this.comment)
+        TaskService.add_comment(this.comment)
           .then((res) => {
+            this.comment.text = ""
             console.log(res)
+            this.get_comments()
+            this.add_cm_loading = false
           })
           .catch((err) => {
             console.log(err.response)
+            this.add_cm_loading = false
           })
-        this.add_cm_loading = false
-      },get_comments() {
-        if (this.$props.task.id){
-          TaskService
-            .get_comments(this.token,this.$props.task.id)
-            .then((res)=> {
-              this.comments = res.data
-            })
-        }
+      }, get_comments() {
+        TaskService
+          .get_comments(this.$props.task.id)
+          .then((res) => {
+            this.comments = res.data
+          })
       }
     },
 
@@ -159,6 +167,7 @@
   .card {
     width: 700px;
   }
+
   .custome-cursor {
     cursor: pointer;
   }

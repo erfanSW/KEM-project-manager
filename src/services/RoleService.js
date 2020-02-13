@@ -2,8 +2,8 @@ import Api from "./Api";
 import store from "../store/index";
 
 export default {
-  getTasks(project) {
-    return Api().get(`tasks`, {
+  get_roles(project) {
+    return Api().get('roles/', {
       params: {
         project
       },
@@ -11,18 +11,11 @@ export default {
         Authorization: 'Token ' + store().getters['account/token']
       }
     })
-  },
-  add_comment(comment) {
-    return Api().post(`comment/`, comment ,{
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
-    })
-  },
-  get_comments(task) {
-    return Api().get(`comment`, {
+  },add_role(role) {
+    console.log(role)
+    return Api().post('roles/', role,{
       params: {
-        task: task
+        project: role.project
       },
       headers: {
         Authorization: 'Token ' + store().getters['account/token']

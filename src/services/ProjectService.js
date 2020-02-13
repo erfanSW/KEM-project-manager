@@ -1,17 +1,19 @@
 import Api from './Api'
+import account from '../store/user/index'
+import store from "../store/index"
 
 export default {
-    get(token) {
+    get() {
       return Api().get('projects',{
         headers: {
-          Authorization: "Token " + token
+          Authorization: "Token " + store().getters['account/token']
         }
       })
     },
-    post(data,token) {
+    post(data) {
       return Api().post('projects/',data,{
         headers: {
-          Authorization: "Token " + token
+          Authorization: "Token " + store().getters['account/token']
         }
       })
     },

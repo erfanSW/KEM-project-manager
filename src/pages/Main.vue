@@ -1,5 +1,5 @@
 <template>
-  <div :class="{grey_overlay:grey_overlay}">
+  <div :class="{grey_overlay:grey_overlay}" class="maincontainer">
     <q-btn flat class="bg-indigo-3 text-white arrow" @click="startvideo">
       راهنما
       <q-icon name="play_arrow"/>
@@ -174,5 +174,14 @@
     color: white;
     border-radius: 10px;
     transition: background-color,transform 1s ease-in;
+  }
+
+  .maincontainer {
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: red;
   }
 </style>

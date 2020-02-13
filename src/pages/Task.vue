@@ -49,7 +49,7 @@ export default {
       this.showModal()
     },
     getAll() {
-      TaskService.getTasks(this.token,this.$route.params.project_id)
+      TaskService.getTasks(this.$route.params.project_id)
         .then((res) => {
         console.log(res)
         this.tasks = res.data

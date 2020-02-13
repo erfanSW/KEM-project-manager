@@ -1,16 +1,22 @@
 <template>
-  <q-card-section>
-    <router-link class="text-h6 q-ml-lg q-mb-xl text-indigo-5 routerlink" :to="{
+  <q-card-section style="width: 300px;height:450px;border-radius: 20px" class="shadow-3">
+    <q-item clickable>
+      <q-item-section avatar>
+        <q-icon color="indigo-5" name="star"/>
+      </q-item-section>
+      <q-item-section>
+        <router-link class="text-indigo-5 routerlink" :to="{
                 name: 'task',
                 params: {
                   project_id: project.id
                   }
               }">{{project.name}}
-    </router-link>
-    <q-separator color="indigo-5 q-mt-md"/>
+        </router-link>
+      </q-item-section>
+    </q-item>
     <q-item clickable class="q-mt-xl">
       <q-item-section avatar>
-        <q-icon color="indigo-5" name="accessibility"/>
+        <q-icon color="indigo-5" name="emoji_people"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>مهدی خان محمدی</q-item-label>
@@ -37,15 +43,15 @@
       </q-item-section>
     </q-item>
     <q-separator/>
-      <q-item>
-        <q-item-section avatar>
-          <q-icon color="indigo-5" name="label"/>
-        </q-item-section>
-        <q-item-section>
-          <div>توضیحات</div>
-          <div class="text-caption text-grey">{{project.description}}</div>
-        </q-item-section>
-      </q-item>
+    <q-item>
+      <q-item-section avatar>
+        <q-icon color="indigo-5" name="label"/>
+      </q-item-section>
+      <q-item-section>
+        <div>توضیحات</div>
+        <div class="text-caption text-grey" style="overflow: auto;max-width: 200px">{{project.description}}</div>
+      </q-item-section>
+    </q-item>
 
   </q-card-section>
 </template>
@@ -62,6 +68,5 @@
 <style scoped>
   .routerlink {
     text-decoration: none;
-    margin-top: 100px !important;
   }
 </style>

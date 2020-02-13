@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated reveal style="opacity: 1">
-      <q-toolbar class="bg-indigo-5">
+    <q-header  reveal style="opacity: 1">
+      <q-toolbar style="background-color: white;" class="text-blue-grey-8">
         <q-btn
           flat
           dense
@@ -11,6 +11,7 @@
           aria-label="Menu"
         />
         <q-toolbar-title>عرفان چگینی</q-toolbar-title>
+        <q-btn icon="power_settings_new" class="q-mr-lg" size="17px" round flat />
       </q-toolbar>
     </q-header>
 
