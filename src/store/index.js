@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import example from './module-example'
+// import example from './modal_store'
 import modal_store from './modal_store/index'
 import user from './user/index'
 import observer_store from './observer_store/index'

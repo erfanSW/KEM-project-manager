@@ -1,8 +1,9 @@
 <template>
   <div class="q-pa-lg shadow-3" style="width: 300px;height:450px;border-radius: 20px">
     <div v-if="!updating">
-      <q-input label="نام نقش" v-model="role.name" stack-label/>
-      <div class=" q-mt-md" >
+      <div class="text-h6 text-blue-grey-8">مدیریت نقش ها</div>
+      <q-input label="نام نقش" class="q-mt-md" v-model="role.name" stack-label outlined/>
+      <div class=" q-mt-md">
         <q-select
           v-model="role.permissions"
           label="دسترسی ها"
@@ -13,19 +14,26 @@
           stack-label
           emit-value
           map-options
+          outlined
         >
         </q-select>
-        <q-btn class="full-width q-mt-md q-mb-lg" label="ایجاد نقش" color="indigo-5" :loading="addRoleLoading" @click="add_role"
-               outline>
+        <q-btn class="full-width q-mt-md q-mb-sm" label="ایجاد نقش" color="indigo-5" :loading="addRoleLoading"
+               @click="add_role"
+        >
           <template v-slot:loading>
             <q-spinner-radio/>
           </template>
         </q-btn>
-        <q-btn flat color="indigo-5" size="10px" @click="updating=true">ویرایش</q-btn>
+        <q-btn flat color="indigo-5" size="12px" @click="updating=true">ویرایش</q-btn>
+        <div class="text-caption text-grey" style="font-size: 10px;">
+          * در این قسمت میتوانید با توجه به نیازتان و توانایی افراد و همچنین شناخت شما از افراد و نقش آنها نقش های
+          متفاوتی برای آن ها تعریف کنید که بتوانند اعمال کنترل شده ای همچون افزودن را انجام دهند.همچنین سازنده گروه
+          همچون خدا بر گروه حکمرانی میکند و میتواند خدایانی را در کنار تخت خود بنشاند
+        </div>
       </div>
     </div>
     <div v-if="updating">
-      <div class=" q-mt-lg" >
+      <div class=" q-mt-lg">
         <q-select
           v-model="updating_role"
           label="نقش"
@@ -34,11 +42,11 @@
           :option-value="opt=>opt.id"
           hint="نقش مورد نظر را انتخاب کنید ..."
           stack-label
-          emit-value
           map-options
+          outlined
         >
         </q-select>
-        <q-input label=" نام نقش" class="q-mt-xl" v-model="updating_role.name" stack-label />
+        <q-input label=" نام نقش" class="q-mt-xl" v-model="updating_role.name" stack-label outlined/>
         <q-select
           v-model="updating_role.permissions"
           label="دسترسی ها"
@@ -48,23 +56,23 @@
           class="q-mt-md"
           multiple
           stack-label
-          emit-value
           map-options
+          outlined
         >
         </q-select>
-          <q-btn class="full-width q-mt-md" label="ذخیره"  color="indigo-5" :loading="addRoleLoading" @click="add_role"
-                 outline>
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-          <q-btn class="full-width q-mt-md q-mb-md" label="حذف"  color="red-5" :loading="addRoleLoading" @click="add_role"
-                 outline>
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-          <q-btn icon="keyboard_return" class="q-mt-xs bg-blue text-white" @click="updating=false" size="10px" flat/>
+        <q-btn class="full-width q-mt-md" label="ذخیره" color="indigo-5" :loading="addRoleLoading" @click="update_role"
+               outline>
+          <template v-slot:loading>
+            <q-spinner-radio/>
+          </template>
+        </q-btn>
+        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" :loading="addRoleLoading" @click="add_role"
+               outline>
+          <template v-slot:loading>
+            <q-spinner-radio/>
+          </template>
+        </q-btn>
+        <q-btn icon="keyboard_return" class="q-mt-xs bg-blue text-white" @click="updating=false" size="10px" flat/>
       </div>
     </div>
   </div>
@@ -118,10 +126,11 @@
           }
         ]
       }
-    }, methods: {
+    },
+    methods: {
       add_role() {
-        this.addRoleLoading = true,
-          this.role.project = this.$props.project.id
+        this.addRoleLoading = true
+        this.role.project = this.$props.project.id
         RoleService
           .add_role(this.role)
           .then((res) => {
@@ -135,6 +144,32 @@
           .catch((err) => {
             console.log(err)
             this.addRoleLoading = false
+            this.$q.notify({
+              message: err,
+              color: 'red'
+            })
+          })
+      },
+      update_role() {
+        this.addRoleLoading = true
+        this.role.project = this.$props.project.id
+        RoleService
+          .add_role(this.role)
+          .then((res) => {
+            console.log(res);
+            this.addRoleLoading = false;
+            this.$q.notify({
+              message: 'با موفقیت انجام شد',
+              color: 'green'
+            });
+          })
+          .catch((err) => {
+            console.log(err)
+            this.addRoleLoading = false
+            this.$q.notify({
+              message: err,
+              color: 'red'
+            })
           })
       },
       get_roles() {

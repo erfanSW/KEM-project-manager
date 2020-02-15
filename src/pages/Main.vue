@@ -4,7 +4,8 @@
       راهنما
       <q-icon name="play_arrow"/>
     </q-btn>
-    <img src="../assets/undraw_launching_125y.svg" v-if="grey_overlay" width="100px" class="bg-indigo-3 text-white overlay_content">
+    <img src="../assets/undraw_launching_125y.svg" v-if="grey_overlay" width="100px"
+         class="bg-indigo-3 text-white overlay_content">
     <div class="header">
       <div class="q-pa-lg row headerbar">
         <q-btn flat>رزومه ها</q-btn>
@@ -25,16 +26,25 @@
 
 
     <div class="container">
-      <div class="row">
-        <h6
-          class="col-6"
-          style="margin-top:100px;color:#3F3D56;height: 40px"
+      <div class="row" style="margin-bottom: 100px">
+        <div
+          class="col-6 text-h6"
           :class="{whiteboard:firstwb}"
-        >زمان بندی پروژه ها را به خوبی مدیریت کنید</h6>
+        >زمان بندی پروژه ها را به خوبی مدیریت کنید
+          <div>
+            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
+              متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
+              حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
+              در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
+              نخورید و اوه اوه باشید.
+              <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+            </div>
+          </div>
+        </div>
         <img
           src="../assets/undraw_dev_productivity_umsq.svg"
           class="col-6"
-          style="height:300px"
+          style="height:200px"
           :class="{whiteboard:firstwb}"
           width="200px"
           height="200px"
@@ -42,22 +52,43 @@
         />
       </div>
       <div class="row q-mt-xl">
-        <img src="../assets/undraw_selecting_team_s098.svg" class="col-6" :class="{whiteboard:secondwb}" width="200px"
+        <img src="../assets/undraw_selecting_team_s098.svg" class="col-6" :class="{whiteboard:secondwb}" height="100px"
+             style="width: 400px;"
              alt/>
-        <h6
-          class="col-6"
-          style="text-align:left;margin-top:100px;height: 40px"
+        <div
+          class="col-6 text-h6"
+          style="text-align:left;"
           :class="{whiteboard:secondwb}"
-        >تیم بسازید و مدیریت پروژه را در قالب تیم تجربه کنید</h6>
+        >تیم بسازید و مدیریت پروژه را در قالب تیم تجربه کنید
+          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
+            متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
+            حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
+            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
+            نخورید و اوه اوه باشید.
+            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+          </div>
+        </div>
       </div>
       <div class="row q-mt-xl">
-        <h6 class="col-6" style="margin-top:200px;height: 40px" :class="{whiteboard:thirdwb}">آخرین کامیت هارا بررسی کنید</h6>
-        <img src="../assets/undraw_hacker_mindset_gjwq.svg" class="col-6" :class="{whiteboard:thirdwb}" width="200px"
+        <div class="col-6 text-h6 q-mt-xl" :class="{whiteboard:thirdwb}">آخرین کامیت هارا بررسی کنید
+          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
+            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
+            و اوه اوه باشید.
+            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
+            و اوه اوه باشید.
+            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+          </div>
+        </div>
+        <img src="../assets/undraw_hacker_mindset_gjwq.svg" class="col-6 q-mt-xl" :class="{whiteboard:thirdwb}"
+             width="200px"
              alt/>
       </div>
       <div class="row q-mt-xl">
-        <img src="../assets/undraw_personal_info_0okl.svg" class="col-6" :class="{whiteboard:fourthwb}" width="200px" alt/>
-        <h6 class="col-6" style="text-align:left;margin-top:100px;height: 40px" :class="{whiteboard:fourthwb}">برای خود پروفایل و رزومه بسازید</h6>
+        <img src="../assets/undraw_personal_info_0okl.svg" class="col-6" :class="{whiteboard:fourthwb}" width="200px"
+             alt/>
+        <div class="col-6 text-h6" style="text-align:left;" :class="{whiteboard:fourthwb}">برای خود پروفایل و رزومه
+          بسازید
+        </div>
       </div>
     </div>
   </div>
@@ -119,7 +150,7 @@
               setTimeout(() => {
                 this.grey_overlay = false;
                 this.scroll_handler(0)
-              },3000)
+              }, 3000)
             }, 1000);
           }, 1000);
         }, 1000);
@@ -137,6 +168,13 @@
     margin-right: 300px;
     margin-left: 300px;
     margin-top: 200px;
+  }
+
+  @media only screen and(max-width: 800px) {
+    .container {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
   }
 
   .arrow {
@@ -173,14 +211,16 @@
     background-color: white;
     color: white;
     border-radius: 10px;
-    transition: background-color,transform 1s ease-in;
+    transition: background-color, transform 1s ease-in;
   }
 
   .maincontainer {
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
+    background-color: #EBEBED;
 
   }
+
   *::-webkit-scrollbar-thumb:hover {
     background-color: red;
   }

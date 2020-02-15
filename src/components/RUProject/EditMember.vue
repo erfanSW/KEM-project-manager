@@ -1,6 +1,7 @@
 <template>
   <div class="shadow-3" style="border-radius: 20px;width: 300px;height: 450px;">
     <div class="q-pa-lg" v-if="!updating" style="width: 300px;">
+      <div class="text-h6 text-blue-grey-8">مدیریت اعضا</div>
       <div class="q-gutter-md q-mt-md">
         <q-select
           v-model="member.role"
@@ -12,6 +13,7 @@
           stack-label
           emit-value
           map-options
+          outlined
         >
         </q-select>
         <div class="text-caption" v-else>
@@ -32,6 +34,7 @@
           stack-label
           emit-value
           map-options
+          outlined
         >
         </q-select>
       </div>
@@ -40,8 +43,15 @@
         v-model="member.is_admin"
         label="ادمین"
       />
-      <q-btn outline color="indigo-5" class="q-mt-md q-mb-sm full-width" @click="add_member">افزودن</q-btn>
-      <q-btn flat color="indigo-5" size="10px" @click="updating=true">ویرایش</q-btn>
+      <q-btn color="indigo-5" class="q-mt-md q-mb-sm full-width" @click="add_member" :loading="add_member_loading" label="افزودن">
+        <template v-slot:loading>
+          <q-spinner-radio/>
+        </template>
+      </q-btn>
+      <q-btn flat color="indigo-5" size="12px" @click="updating=true">ویرایش</q-btn>
+      <div class="text-caption text-grey" style="font-size: 10px;">
+        در این قسمت میتوانید با توجه به نیازتان و توانایی افراد و همچنین شناخت شما از افراد و نقش آنها نقش های متفاوتی برای آن ها تعریف کنید که بتوانند اعمال کنترل شده ای همچون افزودن را انجام دهند.
+      </div>
     </div>
     <div v-if="updating" class="q-pa-lg">
       <div>
@@ -55,6 +65,8 @@
           class="q-mb-xl"
           stack-label
           map-options
+          outlined
+          emit-value
         >
         </q-select>
         <q-select
@@ -67,6 +79,7 @@
           stack-label
           emit-value
           map-options
+          outlined
         >
         </q-select>
         <q-checkbox
@@ -121,7 +134,8 @@
           role: null,
           is_admin: false
         },
-        updating: false
+        updating: false,
+        add_member_loading: false
       }
     },
     computed: {
@@ -155,15 +169,27 @@
           })
       },
       add_member() {
+        this.add_member_loading = true
         this.member.project = this.$props.project.id
         console.log(this.member)
         MemberService
           .add_member(this.member)
           .then((res) => {
             console.log(res)
+            this.add_member_loading = false
+            this.$q.notify({
+              message: 'با موفقیت ایجاد شد',
+              color: 'green'
+            })
+            this.get_members()
           })
           .catch((err) => {
+            this.add_member_loading = false
             console.log(err)
+            this.$q.notify({
+              message: err,
+              color: 'red'
+            })
           })
       }, get_members() {
         MemberService
