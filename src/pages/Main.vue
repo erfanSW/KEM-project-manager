@@ -8,12 +8,12 @@
          class="bg-indigo-3 text-white overlay_content">
     <div class="header">
       <div class="q-pa-lg row headerbar">
-        <q-btn flat>رزومه ها</q-btn>
-        <q-btn flat>پلن ها</q-btn>
+        <q-btn flat class="text-blue-grey-8">رزومه ها</q-btn>
+        <q-btn flat class="text-blue-grey-8">پلن ها</q-btn>
         <q-btn flat class="bg-indigo-5 text-white">اسپانسر پرومن شوید!</q-btn>
-        <q-btn flat v-if="isUserLoggedIn" :to="{path:'team'}">داشبورد</q-btn>
-        <q-btn flat v-if="!isUserLoggedIn" :to="{path:'login'}">ورود</q-btn>
-        <q-btn flat v-else @click="_logout">خروج</q-btn>
+        <q-btn flat v-if="isUserLoggedIn" :to="{path:'/dashboard'}" class="text-blue-grey-8">داشبورد</q-btn>
+        <q-btn flat v-if="!isUserLoggedIn" :to="{name:'signup'}">ثبت نام</q-btn>
+        <q-btn flat v-else @click="_logout" class="text-blue-grey-8">خروج</q-btn>
       </div>
     </div>
     <!-- <q-btn flat outline class=" text-indigo absolute-center q-mt-xl">همین حالا تیم فضایی خودت رو بساز!</q-btn> -->
@@ -21,7 +21,8 @@
       outline
       color="indigo-5"
       class="absolute-center q-mt-xl"
-      label="همین حالا تیم فضایی خودت رو بساز!"
+      label="همین الان تجربیات دیگران رو بخون!"
+      :to="{path:'blog'}"
     />
 
 
@@ -217,8 +218,7 @@
   .maincontainer {
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
-    background-color: #EBEBED;
-
+    background-color: #fcfcfe;
   }
 
   *::-webkit-scrollbar-thumb:hover {

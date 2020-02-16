@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-3" style="border-radius: 20px;width: 300px;height: 450px;">
+  <div style="border-radius: 20px;width: 300px;height: 450px;">
     <div class="q-pa-lg" v-if="!updating" style="width: 300px;">
       <div class="text-h6 text-blue-grey-8">مدیریت اعضا</div>
       <div class="q-gutter-md q-mt-md">
@@ -43,14 +43,16 @@
         v-model="member.is_admin"
         label="ادمین"
       />
-      <q-btn color="indigo-5" class="q-mt-md q-mb-sm full-width" @click="add_member" :loading="add_member_loading" label="افزودن">
+      <q-btn color="indigo-5" class="q-mt-md q-mb-sm full-width" @click="add_member" :loading="add_member_loading"
+             label="افزودن">
         <template v-slot:loading>
           <q-spinner-radio/>
         </template>
       </q-btn>
       <q-btn flat color="indigo-5" size="12px" @click="updating=true">ویرایش</q-btn>
       <div class="text-caption text-grey" style="font-size: 10px;">
-        در این قسمت میتوانید با توجه به نیازتان و توانایی افراد و همچنین شناخت شما از افراد و نقش آنها نقش های متفاوتی برای آن ها تعریف کنید که بتوانند اعمال کنترل شده ای همچون افزودن را انجام دهند.
+        در این قسمت میتوانید با توجه به نیازتان و توانایی افراد و همچنین شناخت شما از افراد و نقش آنها نقش های متفاوتی
+        برای آن ها تعریف کنید که بتوانند اعمال کنترل شده ای همچون افزودن را انجام دهند.
       </div>
     </div>
     <div v-if="updating" class="q-pa-lg">
@@ -59,14 +61,13 @@
           v-model="updating_member"
           label="شخص"
           :options="members"
-          :option-label="opt=>opt.id"
+          :option-label="opt=>opt.email"
           :option-value="opt=>opt.id"
           hint="شخص مورد نظر را انتخاب کنید ..."
           class="q-mb-xl"
           stack-label
           map-options
           outlined
-          emit-value
         >
         </q-select>
         <q-select
@@ -88,13 +89,13 @@
           label="ادمین"
         />
 
-        <q-btn class="full-width q-mt-md" label="ذخیره" color="indigo-5" :loading="addRoleLoading" @click="add_role"
+        <q-btn class="full-width q-mt-md" label="ذخیره" color="indigo-5" :loading="updateLoading" @click="update"
                outline>
           <template v-slot:loading>
             <q-spinner-radio/>
           </template>
         </q-btn>
-        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" :loading="addRoleLoading" @click="add_role"
+        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" @click="update"
                outline>
           <template v-slot:loading>
             <q-spinner-radio/>
@@ -111,6 +112,7 @@
   import UsersServices from "../../services/UsersServices";
   import RoleService from "../../services/RoleService";
   import MemberService from "../../services/MemberService";
+  import ProjectService from "../../services/ProjectService";
 
   export default {
     name: "EditMember",
@@ -135,7 +137,8 @@
           is_admin: false
         },
         updating: false,
-        add_member_loading: false
+        add_member_loading: false,
+        updateLoading:false
       }
     },
     computed: {
@@ -169,14 +172,12 @@
           })
       },
       add_member() {
-        this.add_member_loading = true
         this.member.project = this.$props.project.id
         console.log(this.member)
         MemberService
           .add_member(this.member)
           .then((res) => {
             console.log(res)
-            this.add_member_loading = false
             this.$q.notify({
               message: 'با موفقیت ایجاد شد',
               color: 'green'
@@ -184,7 +185,6 @@
             this.get_members()
           })
           .catch((err) => {
-            this.add_member_loading = false
             console.log(err)
             this.$q.notify({
               message: err,
@@ -197,9 +197,38 @@
           .then((res) => {
             console.log(res)
             this.members = res.data
+            this.members.forEach((member)=> {
+              member.email = member.user.email
+            })
+            console.log(this.members)
           })
           .catch((err) => {
             console.log(err)
+          })
+      }, update() {
+        this.updateLoading = true
+        this.updating_member.project = this.$props.project.id
+        MemberService
+          .put(this.updating_member)
+          .then((res) => {
+            this.updateLoading = false
+            console.log(res)
+            this.$q.notify({
+              message: 'با موفقیت انجام شد',
+              color: 'green'
+            })
+            for (let key in this.updating_member) {
+              this.updating_member[key] = null
+            }
+            this.get_members()
+          })
+          .catch((err) => {
+            this.updateLoading = false
+            console.log(err)
+            this.$q.notify({
+              message: err,
+              color: 'red'
+            })
           })
       }
     },

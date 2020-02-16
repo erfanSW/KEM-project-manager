@@ -14,9 +14,13 @@ export default {
   },add_member(member) {
     console.log(member)
     return Api().post('memberships/',member,{
-      params: {
-        project: member.project
-      },
+      headers: {
+        Authorization: 'Token ' + store().getters['account/token']
+      }
+    })
+  },put(member) {
+    member.user = member.user.id
+    return Api().put(`memberships/${member.id}/`, member ,{
       headers: {
         Authorization: 'Token ' + store().getters['account/token']
       }

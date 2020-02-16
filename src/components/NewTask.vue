@@ -18,8 +18,8 @@
                   label="توسط"
                   v-model="task.assigned_to"
                   :options="members"
-                  :option-label="opt=>opt.id"
-                  :option-value="opt=>opt.id"
+                  :option-label="opt=>opt.user.email"
+                  :option-value="opt=>opt.user_id"
                   stack-label
                   emit-value
                   map-options
@@ -32,7 +32,7 @@
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-date v-model="task.due_date" color="indigo-5" class="bg-indigo-5 text-white" calendar="persian" mask="YYYY-MM-DD HH:mm" />
+                    <q-date v-model="task.due_date" color="indigo-5" class="bg-indigo-5 text-white" mask="YYYY-MM-DD HH:mm" />
                   </q-popup-proxy>
                 </q-icon>
               </template>
@@ -100,6 +100,9 @@ export default {
         .then((res) => {
           console.log(res)
           this.members = res.data
+          this.members.forEach((obj) => {
+            obj.user_id = obj.user.id
+          })
         })
         .catch((err) => {
           console.log(err)

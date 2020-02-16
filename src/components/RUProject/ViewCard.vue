@@ -1,5 +1,5 @@
 <template>
-  <q-card-section style="width: 300px;height:450px;border-radius: 20px" class="shadow-3">
+  <q-card-section style="width: 300px;height:450px;border-radius: 20px" >
     <q-item clickable class="">
       <q-item-section avatar>
         <q-icon color="indigo-5" name="storage"/>

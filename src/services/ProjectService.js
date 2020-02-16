@@ -18,7 +18,7 @@ export default {
     })
   },
   put(data) {
-    return Api().put('projects/', data, {
+    return Api().put(`projects/${data.id}/`, data, {
       headers: {
         Authorization: "Token " + store().getters['account/token']
       }

@@ -33,12 +33,8 @@ export default {
       projects: [
         {
           name: "پرومن",
-          src: "../statics/team.svg",
+          src: "../statics/undraw_team_ih79.svg",
           type: "دورکاری"
-        },{
-          name: "پرومن",
-          src: "../statics/global.svg",
-          type: "حضوری"
         }
       ]
     };

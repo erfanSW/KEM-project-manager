@@ -12,11 +12,16 @@ export default {
       }
     })
   },add_role(role) {
-    console.log(role)
     return Api().post('roles/', role,{
       params: {
         project: role.project
       },
+      headers: {
+        Authorization: 'Token ' + store().getters['account/token']
+      }
+    })
+  },put(role) {
+    return Api().put(`roles/${role.id}/`, role,{
       headers: {
         Authorization: 'Token ' + store().getters['account/token']
       }

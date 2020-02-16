@@ -2,14 +2,15 @@
   <div class="fixed-center text-center">
     <p>
       <img
-        src="~assets/sad.svg"
-        style="width:30vw;max-width:150px;"
+        src="~assets/undraw_page_not_found_su7k.svg"
+        style="width:90vw;max-width:350px;"
       >
     </p>
     <p class="text-faded">متاسفم صفحه یافت نشد :(</p>
     <q-btn
-      color="secondary"
-      style="width:200px;"
+      color="indigo-5"
+      dense
+      style="width:200px;height: 30px"
       to="/"
       label="به عقب بازگرد"
     />

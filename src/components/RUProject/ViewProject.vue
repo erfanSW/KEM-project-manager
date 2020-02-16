@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="view_project_modal" persistent :maximized="true" transition-show="slide-down"
+  <q-dialog v-model="view_project_modal" persistent transition-show="slide-down"
             transition-hide="slide-up">
     <q-card>
       <q-bar class="bg-indigo-5 text-white q-pa-md-xl">
@@ -8,11 +8,11 @@
           flat
           class="text-white"
           icon="close"
-          size="20px"
           v-close-popup
           @click="closeViewProjectModal"
         ></q-btn>
         <q-space/>
+<!--        <q-btn label="" @click="updating = !updating"/>-->
       </q-bar>
       <q-tabs
         v-model="tab"
@@ -39,6 +39,9 @@
           <div v-if="!updating" class="col-4 col-sm-6 col-md-4 col-xs-12">
             <view-card :project="project"></view-card>
           </div>
+          <div v-if="updating" class="col-4 col-sm-6 col-md-4 col-xs-12">
+            <update :project="project"></update>
+          </div>
         </q-tab-panel>
 
         <q-tab-panel name="alarms">
@@ -54,7 +57,7 @@
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
-    <div class="row q-pa-xl">
+    <div class="row q-pa-xl" v-if="0">
       <div v-if="!updating" class="col-4 col-sm-6 col-md-4 col-xs-12">
         <view-card :project="project"></view-card>
       </div>

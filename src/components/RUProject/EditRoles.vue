@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-lg shadow-3" style="width: 300px;height:450px;border-radius: 20px">
+  <div class="q-pa-lg" style="width: 300px;height:450px;border-radius: 20px">
     <div v-if="!updating">
       <div class="text-h6 text-blue-grey-8">مدیریت نقش ها</div>
       <q-input label="نام نقش" class="q-mt-md" v-model="role.name" stack-label outlined/>
@@ -58,9 +58,10 @@
           stack-label
           map-options
           outlined
+          emit-value
         >
         </q-select>
-        <q-btn class="full-width q-mt-md" label="ذخیره" color="indigo-5" :loading="addRoleLoading" @click="update_role"
+        <q-btn class="full-width q-mt-md" label="ذخیره" color="indigo-5" :loading="updateRoleLoading" @click="update_role"
                outline>
           <template v-slot:loading>
             <q-spinner-radio/>
@@ -99,6 +100,7 @@
           project: null
         },
         addRoleLoading: false,
+        updateRoleLoading: false,
         updating: false,
         roles: [],
         permission_list: [
@@ -108,7 +110,7 @@
           },
           {
             label: 'دیدن تسک ها',
-            value: 'view_tasks'
+            value: 'view_task'
           },
           {
             label: 'اضافه کردن تسک',
@@ -116,7 +118,7 @@
           },
           {
             label: 'ویرایش تسک',
-            value: 'modify_task'
+            value: 'change_task'
           }, {
             label: 'کامنت گذاشتن در تسک',
             value: 'comment_task'
@@ -151,21 +153,25 @@
           })
       },
       update_role() {
-        this.addRoleLoading = true
+        this.updateRoleLoading = true
         this.role.project = this.$props.project.id
         RoleService
-          .add_role(this.role)
+          .put(this.updating_role)
           .then((res) => {
             console.log(res);
-            this.addRoleLoading = false;
+            this.updateRoleLoading = false;
             this.$q.notify({
               message: 'با موفقیت انجام شد',
               color: 'green'
             });
+            for (let key in this.updating_role) {
+              this.updating_role[key] = null
+            }
+            this.get_roles()
           })
           .catch((err) => {
             console.log(err)
-            this.addRoleLoading = false
+            this.updateRoleLoading = false
             this.$q.notify({
               message: err,
               color: 'red'

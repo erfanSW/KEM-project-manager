@@ -26,7 +26,7 @@
       :breakpoint="500"
     >
       <q-list class="mydrawer">
-        <q-item clickable tag="a" :to="{name:'main'}">
+        <q-item clickable tag="a" :to="{path:'/'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="home"/>
           </q-item-section>
@@ -39,7 +39,7 @@
             <q-icon color="blue-grey-8" name="dashboard"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>پروژه ها</q-item-label>
+            <q-item-label>پروژه</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" :to="{name:'team'}">
@@ -47,7 +47,7 @@
             <q-icon color="blue-grey-8" name="people"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>تیم ها</q-item-label>
+            <q-item-label>تیم</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" :to="{name:'note'}">
@@ -55,7 +55,15 @@
             <q-icon color="blue-grey-8" name="notes"/>
           </q-item-section>
           <q-item-section>
-            <q-item-label>یادداشت ها</q-item-label>
+            <q-item-label>یادداشت</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" :to="{name:'blogdash'}">
+          <q-item-section avatar>
+            <q-icon color="blue-grey-8" name="record_voice_over"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>بلاگ</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

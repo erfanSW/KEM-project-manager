@@ -1,12 +1,11 @@
 <template>
-  <div class="col-6 q-pa-lg" style="width: 400px">
+  <div class="col-6 q-pa-lg shadow-3" style="width: 300px;height:450px;border-radius: 20px">
     <q-input label="عنوان" v-model="project.name" :rules="[val => !!val || 'وارد کردن نام ضروری است']"
-             stack-label/>
+             stack-label outlined/>
     <!-- select option -->
     <div>
       <div class="q-gutter-md q-mt-md">
         <q-select
-          filled
           use-input
           use-chips
           multiple
@@ -17,12 +16,13 @@
           @filter="filterFn"
           label="تگ"
           stack-label
+          outlined
         />
       </div>
     </div>
     <!-- select option -->
     <q-input type="textarea" class="q-mt-md" label="توضیحات" v-model="project.description"
-             :rules="[val => !!val || 'وارد کردن توضیحات ضروری است']" stack-label/>
+             :rules="[val => !!val || 'وارد کردن توضیحات ضروری است']" stack-label outlined/>
     <q-btn color="indigo-5" class="full-width" label="ویرایش" @click="update"></q-btn>
   </div>
 </template>
