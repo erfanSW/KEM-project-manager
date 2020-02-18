@@ -43,3 +43,11 @@ export function viewProjectModal ({commit}) {
 export function closeViewProjectModal ({commit}) {
   commit("closeViewProjectModal")
 }
+
+export function open_status_modal ({commit}) {
+  commit("open_status_modal")
+}
+
+export function close_status_modal ({commit}) {
+  commit("close_status_modal")
+}

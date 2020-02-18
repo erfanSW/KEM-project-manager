@@ -63,18 +63,14 @@ export default {
     },
     signup() {
       this.login_loading = true
-      if (1) {
-        this.$router.push({
-          name: 'login'
-        })
-      }
       AuthenticationService
         .signup(this.user)
         .then((res) => {
           this.login_loading = false
           // this.$store.dispatch('account/login',res.data)
-          this.back()
-        })
+          this.$router.push({
+            name: 'login'
+          })        })
         .catch((error) => {
           this.login_loading = false
           console.log(error.response)

@@ -22,8 +22,23 @@ export default {
       }
     })
   },
+  put(data) {
+    console.log(store().getters['account/token'])
+    console.log(data)
+    return Api().patch(`tasks/${data.id}/`,
+    {
+      status: data.status.id
+    }
+  ,
+    {
+      headers: {
+        Authorization: 'Token ' + store().getters['account/token']
+      }
+    }
+  )
+  },
   add_comment(comment) {
-    return Api().post(`comment/`, comment ,{
+    return Api().post(`comment/`, comment, {
       headers: {
         Authorization: 'Token ' + store().getters['account/token']
       }

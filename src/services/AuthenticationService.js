@@ -1,9 +1,10 @@
 import Api from "./Api";
+import store from '../store/index'
 
 
 function signup(user) {
   console.log(user.email + " " + user.password)
-  return Api().post('account/signup',{
+  return Api().post('account/signup/',{
     email: user.email,
     password: user.password
   })
@@ -11,15 +12,16 @@ function signup(user) {
 
 function login(user) {
   console.log(user.email + " " + user.password)
-  return Api().post('account/login',{
+  return Api().post('account/login/',{
     email: user.email,
     password: user.password
   })
 }
 
-function logout(token) {
+function logout() {
+  console.log(store().getters['account/token'])
   return Api().get('account/logout/',{
-    Authorization: 'Token ' + token
+    Authorization: 'Token ' + store().getters['account/token']
   })
 }
 

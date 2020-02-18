@@ -10,8 +10,8 @@
     <div class="container">
       <div class="q-mt-md" v-for="post in posts">
         <q-card flat bordered>
-          <q-card-section class="row bg-indigo-5">
-            <div class="text-h6 text-white">{{post.title}}</div>
+          <q-card-section class="row bg-white">
+            <div class="text-h6 text-blue-grey-8">{{post.title}}</div>
             <q-space/>
             <q-rating
               name="quality"
@@ -67,7 +67,7 @@
             title:  'راهکار های مدیریت بحران',
             description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.',
             author: 'مهدی خان محمدی',
-            caption: 'مدیر شرکت برازر'
+            caption: 'مدیر شرکت '
           }
         ],
         quality: 3,
@@ -88,7 +88,7 @@
     background: url("../assets/bg_1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.4;
+    opacity: 0.1;
     top: 0px;
     left: 0;
     bottom: 0;

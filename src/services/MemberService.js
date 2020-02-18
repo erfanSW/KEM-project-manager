@@ -25,5 +25,16 @@ export default {
         Authorization: 'Token ' + store().getters['account/token']
       }
     })
-  }
+  },
+  delete(id,project) {
+    console.log(id)
+    return Api().delete(`memberships/${id}/` ,{
+      params: {
+        project
+      },
+      headers: {
+        Authorization: 'Token ' + store().getters['account/token']
+      }
+    })
+  },
 }

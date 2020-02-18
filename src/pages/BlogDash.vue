@@ -59,52 +59,11 @@
           </q-btn>
         </q-card-section>
         <q-card-section style=";opacity:0.9"
-                        v-html="'در ای ن مقاله سعی خواهیم کرد مقاله ای را تحت عنوان مقالاتی در عنوان علوم و جهش های حمایشی در روند بهبود یکتایی سیستم  انجام میگیرد.'" class="text-white bg-indigo-5"/>
+                        v-html="'در ای ن مقاله سعی خواهیم کرد مقاله ای را تحت عنوان مقالاتی در عنوان علوم و جهش های حمایشی در روند بهبود یکتایی سیستم  انجام میگیرد.'" class="text-grey-6 bg-white"/>
         <q-separator/>
       </q-card>
     </div>
-    <div class="q-mt-md" style="width: 500px">
-      <q-card flat bordered>
-        <q-card-section class="row bg-white">
-          <div class="text-h6 text-blue-grey-8">بررسی راهکارهای مدیریتی در کسب و کار</div>
-          <q-space/>
-          <q-btn label="حذف" color="red" :loading="deleteLoading" dense outline size="10px" style="width: 50px" @click="delete_note(n.id)">
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-          <q-btn label="ویرایش" color="blue" :loading="deleteLoading" dense outline size="10px" style="width: 50px" class="q-ml-sm" @click="delete_note(n.id)">
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-        </q-card-section>
-        <q-card-section style=";opacity:0.9"
-                        v-html="'در ای ن مقاله سعی خواهیم کرد مقاله ای را تحت عنوان مقالاتی در عنوان علوم و جهش های حمایشی در روند بهبود یکتایی سیستم  انجام میگیرد.'" class="text-white bg-indigo-5"/>
-        <q-separator/>
-      </q-card>
-    </div>
-    <div class="q-mt-md" style="width: 500px">
-      <q-card flat bordered>
-        <q-card-section class="row bg-white">
-          <div class="text-h6 text-blue-grey-8">بررسی راهکارهای مدیریتی در کسب و کار</div>
-          <q-space/>
-          <q-btn label="حذف" color="red" :loading="deleteLoading" dense outline size="10px" style="width: 50px" @click="delete_note(n.id)">
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-          <q-btn label="ویرایش" color="blue" :loading="deleteLoading" dense outline size="10px" style="width: 50px" class="q-ml-sm" @click="delete_note(n.id)">
-            <template v-slot:loading>
-              <q-spinner-radio/>
-            </template>
-          </q-btn>
-        </q-card-section>
-        <q-card-section style=";opacity:0.9"
-                        v-html="'در ای ن مقاله سعی خواهیم کرد مقاله ای را تحت عنوان مقالاتی در عنوان علوم و جهش های حمایشی در روند بهبود یکتایی سیستم  انجام میگیرد.'" class="text-white bg-indigo-5"/>
-        <q-separator/>
-      </q-card>
-    </div>
+
   </q-page>
 </template>
 

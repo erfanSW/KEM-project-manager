@@ -1,8 +1,8 @@
 export default {
    data() {
      return {
-       stringOptions: ["it", "علمی", "تخیلی", "تخمی"],
-       filterOptions: ["it", "علمی", "تخیلی", "تخمی"],
+       stringOptions: ["it", "علمی", "تخیلی"],
+       filterOptions: ["it", "علمی", "تخمی"],
      };
    },
    methods: {

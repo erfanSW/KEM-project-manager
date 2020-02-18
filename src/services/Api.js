@@ -2,6 +2,6 @@ import axios from 'axios'
 
 export default () => {
   return axios.create({
-      baseURL: 'https://promanback.herokuapp.com/api/v1/'
+      baseURL: 'http://10.42.0.1:9000/api/v1/'
   })
 }

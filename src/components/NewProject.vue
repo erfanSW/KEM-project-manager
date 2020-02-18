@@ -38,7 +38,7 @@
             </div>
             <q-input type="text" autogrow class="q-mt-md" label="توضیحات" v-model="project.description"
                      :rules="[val => !!val || 'وارد کردن توضیحات ضروری است']" stack-label/>
-            <q-btn outline class="text-indigo q-mt-lg full-width" :loading="loading" label="ورود"
+            <q-btn outline class="text-indigo q-mt-lg full-width" :loading="loading" label="ایجاد"
                    @click="post">
               <template v-slot:loading>
                 <q-spinner-facebook />

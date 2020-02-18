@@ -77,6 +77,7 @@
 
 <script>
   import {mapActions, mapState} from 'vuex'
+  import AuthenticationServices from "../services/AuthenticationService";
 
   export default {
     name: "DashboardLayout",
@@ -98,9 +99,11 @@
       ]),
       _logout() {
         this.logout()
-        this.$router.push({
-          path: '/main'
-        })
+        // AuthenticationServices
+        //   .logout()
+        //   .then((res)=> {
+        //     this.logout()
+        //   })
       }
     },
     mounted() {

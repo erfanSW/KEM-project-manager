@@ -67,7 +67,7 @@
             <q-spinner-radio/>
           </template>
         </q-btn>
-        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" :loading="addRoleLoading" @click="add_role"
+        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" :loading="deleteRoleLoading" @click="delete_role"
                outline>
           <template v-slot:loading>
             <q-spinner-radio/>
@@ -101,6 +101,7 @@
         },
         addRoleLoading: false,
         updateRoleLoading: false,
+        deleteRoleLoading: false,
         updating: false,
         roles: [],
         permission_list: [
@@ -125,6 +126,19 @@
           }, {
             label: 'حذف تسک',
             value: 'delete_task'
+          },{
+            label: 'تغییر پروژه',
+            value: 'change_project'
+          },{
+            label: 'حذف پروژه' ,
+            value: 'delete_project'
+          },
+          {
+            label: 'اد کردن عضو' ,
+            value: 'add_member'
+          },{
+            label: 'حذف عضو' ,
+            value: 'remove_member'
           }
         ]
       }
@@ -172,6 +186,32 @@
           .catch((err) => {
             console.log(err)
             this.updateRoleLoading = false
+            this.$q.notify({
+              message: err,
+              color: 'red'
+            })
+          })
+      },
+      delete_role() {
+        this.deleteRoleLoading = true
+        this.role.project = this.$props.project.id
+        RoleService
+          .delete(this.updating_role.id,this.$props.project.id)
+          .then((res) => {
+            console.log(res);
+            this.deleteRoleLoading = false;
+            this.$q.notify({
+              message: 'با موفقیت انجام شد',
+              color: 'green'
+            });
+            for (let key in this.updating_role) {
+              this.updating_role[key] = null
+            }
+            this.get_roles()
+          })
+          .catch((err) => {
+            console.log(err)
+            this.deleteRoleLoading = false
             this.$q.notify({
               message: err,
               color: 'red'

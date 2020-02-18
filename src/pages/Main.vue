@@ -13,6 +13,7 @@
         <q-btn flat class="bg-indigo-5 text-white">اسپانسر پرومن شوید!</q-btn>
         <q-btn flat v-if="isUserLoggedIn" :to="{path:'/dashboard'}" class="text-blue-grey-8">داشبورد</q-btn>
         <q-btn flat v-if="!isUserLoggedIn" :to="{name:'signup'}">ثبت نام</q-btn>
+        <q-btn flat v-if="!isUserLoggedIn" :to="{name:'login'}">ورود</q-btn>
         <q-btn flat v-else @click="_logout" class="text-blue-grey-8">خروج</q-btn>
       </div>
     </div>
@@ -33,12 +34,12 @@
           :class="{whiteboard:firstwb}"
         >زمان بندی پروژه ها را به خوبی مدیریت کنید
           <div>
-            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-              متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
-              حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
-              در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
-              نخورید و اوه اوه باشید.
-              <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+            <div style="font-size: 12px;" class="text-blue-grey-8 q-mt-sm">
+              در واقع پروژه یک فعالیت مقطعی است که برایش نقطه شروع و پایان تعریف شده و با زمان و منابع خاصی محدود شده
+              است. بر اساس همین تعریف، پروژه یک فعالیت ادامه دار نیست و کاملا منحصر به فرد است. اما شامل دسته ای از
+              فعالیت‌ها می‌شود که برای دستیابی به هدف خاصی طراحی و اجرا می‌شود. بنابراین تیم یک پروژه می‌تواند از افرادی
+              تشکیل شود که معمولا با هم کار نمی‌کنند، (و گاهاً از سازمان‌ها و مناطق جغرافیایی متفاوت هستند).
+              <q-btn label="ایجاد تسک" class="bg-indigo-5 text-white" :to="{name: 'task'}" style="width: 130px;"/>
             </div>
           </div>
         </div>
@@ -61,34 +62,42 @@
           style="text-align:left;"
           :class="{whiteboard:secondwb}"
         >تیم بسازید و مدیریت پروژه را در قالب تیم تجربه کنید
-          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-            متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
-            حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
-            نخورید و اوه اوه باشید.
-            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+          <div style="font-size: 12px;" class="text-blue-grey-8 q-mt-sm">
+            یک تیم گروهی از افراد است که در ارتباط با هدف مشخصی گرد هم آمده‌اند. از تیم جهت انجام وظایفی که دارای
+            پیچیدگی و قابل تقسیم به زیر وظایف ساده‌تر می‌باشند استفاده می‌شود. تیم‌ها به‌طور معمول دارای اعضایی هستند که
+            با بر خورداری از مهارت‌های مکمل، سبب ایجاد هم افزایی در طی یک تلاش هماهنگ شده می گردند، به‌طوری‌که نقاط قوت
+            هر عضو تیم به حداکثر و نقاط ضعف آن‌ها به حد اقل رسانده می‌شود.
+            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" :to="{name: 'team'}" style="width: 130px;"/>
           </div>
         </div>
       </div>
       <div class="row q-mt-xl">
-        <div class="col-6 text-h6 q-mt-xl" :class="{whiteboard:thirdwb}">آخرین کامیت هارا بررسی کنید
-          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
-            و اوه اوه باشید.
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
-            و اوه اوه باشید.
-            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;"/>
+        <div class="col-6 text-h6 q-mt-xl" :class="{whiteboard:thirdwb}" style="margin-top: 120px">آخرین کامیت هارا
+          بررسی کنید
+          <div style="font-size: 12px;" class="text-blue-grey-8 q-mt-sm">
+            کامیت در گیت شباهت بسیار زیادی با کامیت در سایر سیستم‌های کنترل نسخه مانند ساب‌ورژن دارد. روند کار به این
+            شکل است که کار را آغاز می‌کنید و پیامی جهت توضیح اینکه دلیل تغییر انجام گرفته چیست وارد می‌کنید و فایل تغییر
+            می‌یابد. پس دستور git commit را اجرا کنید. با این کار ویرایشگر به‌صورت خودکار باز می‌شود و الگوی زیر را
+            نمایش می‌دهد.
+            <q-btn label="بزودی ..." disable class="bg-indigo-5 text-white" style="width: 130px;"/>
           </div>
         </div>
         <img src="../assets/undraw_hacker_mindset_gjwq.svg" class="col-6 q-mt-xl" :class="{whiteboard:thirdwb}"
              width="200px"
              alt/>
       </div>
-      <div class="row q-mt-xl">
+      <div class="row q-mt-xl q-mb-xl">
         <img src="../assets/undraw_personal_info_0okl.svg" class="col-6" :class="{whiteboard:fourthwb}" width="200px"
              alt/>
         <div class="col-6 text-h6" style="text-align:left;" :class="{whiteboard:fourthwb}">برای خود پروفایل و رزومه
           بسازید
+          <div style="font-size: 12px;" class="text-blue-grey-8 q-mt-sm">
+            رزومه متنی است که می‌تواند بین یک تا چند صفحه متغیر باشد و در آن اطلاعاتی مانند پیشینه تحصیلی و کاری افراد و
+            نیز توانایی‌‌ها و اطلاعات شخصی او ذکر می‌شود و به نوعی تبلیغی است که در آن ویژگی‌های خود را به کار‌فرمایان
+            عرضه می‌کنند تا آن‌ها با در دست داشتن این اطلاعات اولیه بتوانند توانایی‌ها و مهارت‌های او را برای استخدام
+            ارزیابی کنند و بهترین گزینه موجود را انتخاب بکنند.
+            <q-btn label="بزودی ..." disable class="bg-indigo-5 text-white" style="width: 130px;"/>
+          </div>
         </div>
       </div>
     </div>
@@ -97,6 +106,7 @@
 
 <script>
   import {mapState, mapActions} from 'vuex'
+  import AuthenticationServices from "../services/AuthenticationService";
 
   export default {
     data() {
@@ -131,6 +141,11 @@
       ),
       _logout() {
         this.logout()
+        // AuthenticationServices
+        //   .logout()
+        //   .then((res)=> {
+        //     this.logout()
+        //   })
       },
       startvideo() {
         this.grey_overlay = true;
@@ -204,7 +219,7 @@
 
 
   .grey_overlay {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.9);
   }
 
   .whiteboard {

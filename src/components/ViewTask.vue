@@ -28,7 +28,6 @@
                   <q-icon name="done" class="q-ml-md" color="green" v-if="updateSubject"/>
                   <q-icon name="close" class="q-ml-md" color="red" v-if="updateSubject"/>
                 </div>
-
               </q-item-section>
             </q-item>
             <q-item class="q-mb-md">
@@ -51,6 +50,7 @@
                 <q-item-label caption class="q-mt-xs ">۱۲ روز و ۱۹ ساعت باقیمانده</q-item-label>
               </q-item-section>
             </q-item>
+
 
             <q-item class="q-mt-lg" v-for="(cm,index) in comments" :key="index">
               <q-item-section avatar>
@@ -76,6 +76,14 @@
                 <q-editor min-height="5rem" v-model="comment.text"/>
               </q-item-section>
             </q-item>
+            <div class="row q-mt-xl" style="margin-right: 90px">
+              <q-select label="وضعیت" :options="statuses" :option-label="opt=>opt.name"
+                        style="width: 200px;height: 20px" :option-value="opt=>opt.id"
+                        v-model="task.status"
+                        outlined>
+              </q-select>
+              <q-btn label="تغییر" outline color="indigo-5" class="q-ml-md" @click="update_task" flat/>
+            </div>
           </q-card-section>
         </q-card>
       </div>
@@ -88,12 +96,14 @@
   import {mapState, mapActions} from "vuex";
   import tag_select_mixins from "../mixins/tag_select_mixins";
   import TaskService from "../services/TaskService";
+  import StatusService from "../services/StatusService";
 
   export default {
     components: {},
     mixins: [tag_select_mixins],
     props: [
-      'task'
+      'task',
+      'project'
     ],
     data() {
       return {
@@ -101,6 +111,7 @@
         model_: [],
         options: [],
         comments: [],
+        statuses: [],
         model: null,
         updateSubject: false,
         comment: {
@@ -156,8 +167,23 @@
           .then((res) => {
             this.comments = res.data
           })
-      }
-    },
+      }, getAllStatuses() {
+        StatusService
+          .get(this.$props.project)
+          .then((res) => {
+            this.statuses = res.data
+          })
+      }, update_task(){
+          TaskService
+            .put(this.$props.task)
+            .then((res)=> {
+              console.log(res)
+              this.closeTaskModal()
+            })
+      },
+    }, mounted() {
+      this.getAllStatuses()
+    }
 
   };
 </script>

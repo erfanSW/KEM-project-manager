@@ -37,3 +37,11 @@ export function viewProjectModal (state) {
 export function closeViewProjectModal (state) {
   state.view_project_modal = false
 }
+
+export function open_status_modal (state) {
+  state.new_status_modal = true
+}
+
+export function close_status_modal (state) {
+  state.new_status_modal = false
+}
