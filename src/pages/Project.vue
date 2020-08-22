@@ -35,7 +35,7 @@
       </div>
     </div>
     <new-project></new-project>
-    <view-project :project="viewProject"></view-project>
+    <view-project @update="getAll" :project="viewProject"></view-project>
   </q-page>
 </template>
 

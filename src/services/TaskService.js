@@ -1,15 +1,11 @@
 import Api from "./Api";
-import store from "../store/index";
 
 export default {
   getTasks(project) {
     return Api().get(`tasks`, {
       params: {
-        project
+        project: project.project_id
       },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
     })
   },
   add_task(task) {
@@ -17,41 +13,19 @@ export default {
       params: {
         project: task.project
       },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
     })
   },
-  put(data) {
-    console.log(store().getters['account/token'])
-    console.log(data)
-    return Api().patch(`tasks/${data.id}/`,
-    {
-      status: data.status.id
-    }
-  ,
-    {
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
-    }
-  )
+  delete_task(id) {
+    return Api().delete(`tasks/${id}`)
   },
   add_comment(comment) {
-    return Api().post(`comment/`, comment, {
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
-    })
+    return Api().post(`comment/`, comment, {})
   },
   get_comments(task) {
     return Api().get(`comment`, {
       params: {
         task: task
       },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
     })
   }
 }

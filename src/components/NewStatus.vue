@@ -57,8 +57,6 @@
   import tag_select_mixin from '../mixins/tag_select_mixins'
   import UsersServices from "../services/UsersServices";
   import StatusService from "../services/StatusService";
-
-
   export default {
     components: {},
     mixins: [
@@ -98,7 +96,6 @@
     methods: {
       ...mapActions("ms", ["close_status_modal"]),
       ...mapActions("os", ["loadprojects_toggle"]),
-
       post() {
         this.status.project = this.$props.project
         const areAllFilledsFilledIn = Object.keys(this.status).every(

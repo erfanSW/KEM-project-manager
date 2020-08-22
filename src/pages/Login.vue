@@ -52,10 +52,6 @@
       };
     },
     methods: {
-      // ...mapActions('auth', [
-      //   'login',
-      //   'logout'
-      // ]),
       back() {
         this.$router.push({
           name: 'main'
@@ -67,7 +63,12 @@
           .login(this.user)
           .then((res) => {
             this.login_loading = false
-            this.$store.dispatch('account/login', res.data)
+            this.$q.cookies.set('user', res.data.user, {
+              expires: res.data.expires_in + 's'
+            })
+            this.$q.cookies.set('token', res.data.token, {
+              expires: res.data.expires_in + 's'
+            })
             this.back()
           })
           .catch((error) => {

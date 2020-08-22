@@ -17,11 +17,6 @@ const routes = [{
       component: () => import('pages/Project.vue')
     },
     {
-      name: 'team',
-      path: '/team',
-      component: () => import('pages/Team.vue')
-    },
-    {
       name: 'note',
       path: '/note',
       component: () => import('pages/Note.vue')

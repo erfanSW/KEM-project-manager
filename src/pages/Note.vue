@@ -35,8 +35,8 @@
       <q-btn outline color="indigo-5" class="q-mt-md q-mb-md q-ml-sm" v-if="updating" @click="close_updator">
         <q-icon name="close"/>
       </q-btn>
-      <q-btn outline color="indigo-5" :loading="updatingLoading" class="q-mt-md q-mb-md q-ml-sm" v-if="updating"
-             @click="update_note">
+      <q-btn outline color="indigo-5" :loading="noteLoading" class="q-mt-md q-mb-md q-ml-sm" v-if="updating"
+             @click="add_note">
         <q-icon name="note_add"/>
         <template v-slot:loading>
           <q-spinner-radio/>
@@ -52,19 +52,18 @@
         <q-card-section class="row">
           <div class="text-h6 text-blue-grey-8">{{n.title}}</div>
           <q-space/>
-          <q-chip square class="text-blue-grey-8">{{n.created_datetime.substring(8,10)}} :
+          <q-chip square class="bg-blue-grey-8 text-white">{{n.created_datetime.substring(8,10)}} :
             {{n.created_datetime.substring(5,7)}} : {{n.created_datetime.substring(0,4)}}
           </q-chip>
-          <q-btn label="حذف" color="red" :loading="deleteLoading" dense flat @click="delete_note(n.id)">
+          <q-btn icon="delete" color="red" :loading="deleteLoading" dense flat @click="delete_note(n.id)">
             <template v-slot:loading>
               <q-spinner-radio/>
             </template>
           </q-btn>
-          <q-btn label="ویرایش" color="blue-grey-8" dense flat @click="edit(n)">
-          </q-btn>
+          <q-btn icon="edit" color="blue-grey-8" dense flat @click="edit(n)"></q-btn>
         </q-card-section>
         <q-card-section style=";opacity:0.9"
-                        v-html="n.description" class="text-grey-6 bg-white"/>
+                        v-html="n.description" class="text-white bg-indigo-5"/>
         <q-separator/>
       </q-card>
     </div>
@@ -73,7 +72,6 @@
 
 <script>
   import NoteService from "../services/NoteService";
-  import {mapState} from "vuex"
 
   export default {
     name: "Note",
@@ -91,14 +89,8 @@
         creating: false,
         noteLoading: false,
         deleteLoading: false,
-        updatingLoading: false,
         updating: false,
       }
-    },
-    computed: {
-      ...mapState('account', [
-        'token'
-      ])
     },
     methods: {
       open_editor() {
@@ -133,8 +125,7 @@
       },
       get_notes() {
         NoteService
-          .get_notes(this.token)
-          .then((res) => {
+          .get_notes().then((res) => {
             this.note_list = res.data
           })
           .catch()
@@ -146,7 +137,7 @@
           return;
         }
         NoteService
-          .add_note(this.token, this.note)
+          .add_note(this.note)
           .then((res) => {
             this.get_notes()
           })
@@ -162,35 +153,11 @@
           left: 30
         });
       },
-      update_note() {
-        this.updatingLoading = true
-        NoteService
-          .update_note(this.token, this.updating_note)
-          .then((res) => {
-            console.log(res)
-            this.updatingLoading = false
-            this.$q.notify({
-              message: 'با موفقیت انجام شد',
-              color: 'green'
-            })
-            this.get_notes()
-            this.updating = false
-          })
-          .catch((err)=> {
-            this.$q.notify({
-              message: 'ناموفق',
-              color: 'red'
-            })
-            console.log(err)
-            this.updatingLoading = false
-          })
-      },
       delete_note(note) {
         this.deleteLoading = true
         NoteService
-          .delete_note(this.token, note)
+          .delete_note(note)
           .then((res) => {
-            console.log(res)
             this.deleteLoading = false
             this.get_notes();
           })

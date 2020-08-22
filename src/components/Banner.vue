@@ -1,55 +1,47 @@
 <template>
   <div :style="{'background-color':color,'width':width}" class="taskTitleContainer">
-    <q-btn round flat @click="clickEventEmitter" :icon="icon" aria-label="Menu" class="text-white"/>
+    <q-btn round flat @click="clickEventEmitter" :icon="icon" aria-label="Menu" class="text-white" />
     <span class="text-white">{{name}}</span>
   </div>
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
-
-  export default {
-    props: {
-      width: {
-        default: "300px"
-      },
-      color: {
-        default: "#5C6BC0"
-      },
-      name: {
-        default: "بدون نام"
-      },
-      icon: {
-        default: "add"
-      },
-      status,
-      // this is for vuex/functions
-      clickEvent: {
-        default: "ms/showModal"
-      }
+export default {
+  props: {
+    width: {
+      default: "300px"
     },
-    methods: {
-      clickEventEmitter() {
-        this.$store.dispatch(this.clickEvent);
-        this.set_status(this.$props.status)
-      },
-      ...mapActions('os', [
-        'set_status'
-      ])
+    color: {
+      default: "#5C6BC0"
+    },
+    name: {
+      default: "بدون نام"
+    },
+    icon: {
+      default: "add"
+    },
+    // this is for vuex/functions
+    clickEvent: {
+      default: "ms/showModal"
     }
-  };
+  },
+  methods: {
+    clickEventEmitter() {
+      this.$store.dispatch(this.clickEvent);
+    }
+  }
+};
 </script>
 
 <style scoped>
-  .taskTitleContainer {
-    width: 300px;
-    border-radius: 6px;
-  }
-
-  .title {
-    display: inline;
-    color: white;
-    font-size: 22px;
-    padding: 5px;
-  }
+.taskTitleContainer {
+  width: 300px;
+  border-radius: 6px;
+}
+.title {
+  display: inline;
+  color: white;
+  font-size: 22px;
+  padding: 5px;
+}
 </style>

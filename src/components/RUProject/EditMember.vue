@@ -95,8 +95,7 @@
             <q-spinner-radio/>
           </template>
         </q-btn>
-        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" :loading="deleteLoading"
-               @click="delete_member"
+        <q-btn class="full-width q-mt-md q-mb-md" label="حذف" color="red-5" @click="update"
                outline>
           <template v-slot:loading>
             <q-spinner-radio/>
@@ -139,8 +138,7 @@
         },
         updating: false,
         add_member_loading: false,
-        updateLoading: false,
-        deleteLoading: false
+        updateLoading:false
       }
     },
     computed: {
@@ -175,11 +173,11 @@
       },
       add_member() {
         this.member.project = this.$props.project.id
-        this.add_member_loading = true
+        console.log(this.member)
         MemberService
           .add_member(this.member)
           .then((res) => {
-            this.add_member_loading = false
+            console.log(res)
             this.$q.notify({
               message: 'با موفقیت ایجاد شد',
               color: 'green'
@@ -187,7 +185,7 @@
             this.get_members()
           })
           .catch((err) => {
-            this.add_member_loading = false
+            console.log(err)
             this.$q.notify({
               message: err,
               color: 'red'
@@ -199,7 +197,7 @@
           .then((res) => {
             console.log(res)
             this.members = res.data
-            this.members.forEach((member) => {
+            this.members.forEach((member)=> {
               member.email = member.user.email
             })
             console.log(this.members)
@@ -226,31 +224,6 @@
           })
           .catch((err) => {
             this.updateLoading = false
-            console.log(err)
-            this.$q.notify({
-              message: err,
-              color: 'red'
-            })
-          })
-      },
-      delete_member() {
-        this.deleteLoading = true
-        MemberService
-          .delete(this.updating_member.id,this.$props.project)
-          .then((res) => {
-            this.deleteLoading = false
-            console.log(res)
-            this.$q.notify({
-              message: 'با موفقیت انجام شد',
-              color: 'green'
-            })
-            for (let key in this.updating_member) {
-              this.updating_member[key] = null
-            }
-            this.get_members()
-          })
-          .catch((err) => {
-            this.deleteLoading = false
             console.log(err)
             this.$q.notify({
               message: err,

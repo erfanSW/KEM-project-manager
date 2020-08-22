@@ -42,14 +42,6 @@
             <q-item-label>پروژه</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" :to="{name:'team'}">
-          <q-item-section avatar>
-            <q-icon color="blue-grey-8" name="people"/>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>تیم</q-item-label>
-          </q-item-section>
-        </q-item>
         <q-item clickable tag="a" :to="{name:'note'}">
           <q-item-section avatar>
             <q-icon color="blue-grey-8" name="notes"/>
@@ -76,8 +68,6 @@
 </template>
 
 <script>
-  import {mapActions, mapState} from 'vuex'
-  import AuthenticationServices from "../services/AuthenticationService";
 
   export default {
     name: "DashboardLayout",
@@ -88,26 +78,16 @@
         miniState: true
       };
     },
-    computed: {
-      ...mapState('account', [
-        'isUserLoggedIn'
-      ])
-    },
     methods: {
-      ...mapActions('account', [
-        'logout'
-      ]),
       _logout() {
-        this.logout()
-        // AuthenticationServices
-        //   .logout()
-        //   .then((res)=> {
-        //     this.logout()
-        //   })
+        this.$q.cookies.set('user')
+        this.$router.push({
+          path: '/main'
+        })
       }
     },
     mounted() {
-      if (!this.isUserLoggedIn) {
+      if (!this.$q.cookies.get('user')) {
         this.$router.push({
           path: '/login'
         })

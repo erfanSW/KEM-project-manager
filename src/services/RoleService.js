@@ -1,5 +1,4 @@
 import Api from "./Api";
-import store from "../store/index";
 
 export default {
   get_roles(project) {
@@ -7,34 +6,14 @@ export default {
       params: {
         project
       },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
     })
-  },add_role(role) {
-    return Api().post('roles/', role,{
+  }, add_role(role) {
+    return Api().post('roles/', role, {
       params: {
         project: role.project
       },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
     })
-  },put(role) {
-    return Api().put(`roles/${role.id}/`, role,{
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
-    })
-  },delete(id,project) {
-    console.log(id)
-    return Api().delete(`roles/${id}/` ,{
-      params: {
-        project
-      },
-      headers: {
-        Authorization: 'Token ' + store().getters['account/token']
-      }
-    })
-  },
+  }, put(role) {
+    return Api().put(`roles/${role.id}/`, role)
+  }
 }

@@ -1,9 +1,9 @@
 <template>
   <q-dialog v-model="show" transition-show="fade" transition-hide="fade">
     <q-card class="bg-white text-black card shadow" style="width: 300px;border-radius: 0px 0px 20px 20px;">
-      <q-bar :style="{'background-color':color}">
-        <q-space />
+      <q-bar class="bg-indigo-5">
         <q-btn dense flat class="text-white" icon="close" v-close-popup @click="closeModal"></q-btn>
+        <q-space />
       </q-bar>
 
       <q-card-section>
@@ -15,16 +15,16 @@
             <div style="max-width: 300px">
               <div class="q-gutter-md q-mt-md">
                 <q-select
-                label="توسط"
-                v-model="task.assigned_to"
-                :options="members"
-                :option-label="opt=>opt.user.email"
-                :option-value="opt=>opt.user_id"
-                stack-label
-                emit-value
-                map-options
-              >
-              </q-select>
+                  label="توسط"
+                  v-model="task.assigned_to"
+                  :options="members"
+                  :option-label="opt=>opt.user.email"
+                  :option-value="opt=>opt.user_id"
+                  stack-label
+                  emit-value
+                  map-options
+                >
+                </q-select>
               </div>
             </div>
             <!-- date -->
@@ -64,14 +64,9 @@ export default {
   mixins: [
     tag_select_mixin
   ],
-  props: {
-    project:{
-      default: 1
-    },
-    color: {
-      default: '#727FC7'
-    }
-  },
+  props: [
+    'project'
+  ],
   data() {
     return {
       task: {
@@ -93,10 +88,6 @@ export default {
     ...mapState("ms", {
       show: state => state.new_task_modal
     }),
-    ...mapState("account", {
-      owner: state => state.user.id
-    }),
-    ...mapState("os",['status'])
   },
   methods: {
     ...mapActions("ms", ["closeModal"]),
@@ -104,33 +95,38 @@ export default {
       MemberService
         .get_members(this.$props.project)
         .then((res) => {
+          console.log(res)
           this.members = res.data
           this.members.forEach((obj) => {
             obj.user_id = obj.user.id
           })
         })
         .catch((err) => {
+          console.log(err)
         })
     },
     add_task() {
-      this.task.owner = this.owner;
-      this.task.project = this.$props.project
-      this.task.status = this.status
+      this.task.owner = this.$q.cookies.get('user').id;
+      this.task.project = this.$props.project.project_id
       this.add_task_loading = true
       TaskService
         .add_task(this.task)
         .then((res)=> {
+          this.closeModal()
           this.add_task_loading = false
           this.$q.notify({
-            message: 'با موفقیت ایجاد شد'
+            message: 'با موفقیت ایجاد شد',
+            color: 'green'
           })
         })
         .catch((err) => {
           this.add_task_loading = false
+          console.log(err)
         })
     }
   },
   mounted() {
+    console.log(this.$props.project)
     this.get_members();
   }
 };

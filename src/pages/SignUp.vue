@@ -67,10 +67,10 @@ export default {
         .signup(this.user)
         .then((res) => {
           this.login_loading = false
-          // this.$store.dispatch('account/login',res.data)
           this.$router.push({
-            name: 'login'
-          })        })
+          name: 'login'
+        })
+        })
         .catch((error) => {
           this.login_loading = false
           console.log(error.response)

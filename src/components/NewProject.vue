@@ -90,12 +90,6 @@
       ...mapState("ms", {
         show: state => state.new_project_modal
       }),
-      ...mapGetters("account",
-        [
-          "token",
-          "user_id"
-        ]
-      )
     },
     mounted() {
       console.log(this.show);
@@ -104,11 +98,9 @@
     methods: {
       ...mapActions("ms", ["closeNewProjectModal"]),
       ...mapActions("os", ["loadprojects_toggle"]),
-
       post() {
         this.loading = true;
-        this.project.owner = this.user_id
-        console.log(this.project)
+        this.project.owner = this.$q.cookies.get('user').id
         if (!this.project.name) {
           this.$q.notify({
             message: "لطفا نام پروژه را وارد کنید",
@@ -136,14 +128,12 @@
         ProjectService
           .post(this.project)
           .then((res) => {
-            console.log(res)
             this.loadprojects_toggle()
             this.closeNewProjectModal()
             this.loading = false
           })
           .catch((err) => {
             this.loading = false
-            console.log(err.response);
             this.closeNewProjectModal();
             for (let key in err.response.data) {
               console.log(err.response.data[key]);
