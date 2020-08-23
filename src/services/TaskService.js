@@ -2,21 +2,21 @@ import Api from "./Api";
 
 export default {
   getTasks(project) {
-    return Api().get(`tasks`, {
-      params: {
-        project: project.project_id
-      },
-    })
+    console.log(111111)
+    return Api().get(`task/?project=${project}`)
   },
   add_task(task) {
-    return Api().post(`tasks/`, task, {
+    return Api().post(`task/`, task, {
       params: {
         project: task.project
       },
     })
   },
   delete_task(id) {
-    return Api().delete(`tasks/${id}`)
+    return Api().delete(`task/${id}`)
+  },
+  patch(data) {
+    return Api().patch(`task/${data.id}/`, data)
   },
   add_comment(comment) {
     return Api().post(`comment/`, comment, {})
@@ -27,5 +27,8 @@ export default {
         task: task
       },
     })
-  }
+  },
+  delete_comment(id) {
+    return Api().delete(`comment/${id}`)
+  },
 }

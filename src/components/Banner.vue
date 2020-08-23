@@ -28,6 +28,7 @@ export default {
   methods: {
     clickEventEmitter() {
       this.$store.dispatch(this.clickEvent);
+      this.$emit('selected_status')
     }
   }
 };

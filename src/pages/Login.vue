@@ -1,22 +1,17 @@
 <template>
   <div class="container">
-    <q-card class="absolute-center my-card task-container">
+    <q-card class="absolute-center" style="width:600px">
       <q-badge @click.native="back" color="blue" align="bottom">
         <q-btn flat outline class="text-white" id="backbtn">
           <q-icon name="keyboard_return"/>
         </q-btn>
       </q-badge>
       <q-card-section class="card-title text-white q-mt-md">
-        <div class="row a-pa-md">
+        <div class="row q-pa-md">
           <div class="col-6 q-mr-xl">
-            <q-input type="text" label="نام کاربری" v-model="user.email" stack-label></q-input>
+            <q-input type="text" label="ایمیل" v-model="user.email" stack-label></q-input>
             <q-input class="q-mt-sm" type="password" label="کلمه عبور" v-model="user.password" stack-label></q-input>
-            <q-checkbox
-              class="text-indigo-5 q-mt-lg"
-              v-model="cb"
-              label="قوانین و مقررات را میپذیرم"
-            />
-            <q-btn outline class="text-indigo q-mt-lg full-width" :loading="login_loading" :disable="!cb" label="ورود"
+          <q-btn outline class="text-indigo q-mt-lg full-width" :loading="login_loading" :disable="!user.email && !user.password" label="ورود"
                    @click="login">
               <template v-slot:loading>
                 <q-spinner-radio/>

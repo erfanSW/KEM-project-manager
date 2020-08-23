@@ -1,25 +1,19 @@
 import Api from "./Api";
+import axios from "axios";
 
 
 function signup(user) {
-  console.log(user.email + " " + user.password)
-  return Api().post('account/signup/', {
+  return axios.post('http://51.195.19.165:9090/api/v1/signup/', {
     email: user.email,
     password: user.password
   })
 }
 
 function login(user) {
-  return Api().post('account/login/', {
-      email: user.email,
-      password: user.password
-    },
-    {
-      headers: {
-        Authorization: 's'
-      }
-    }
-  )
+  return axios.post('http://51.195.19.165:9090/api/v1/login/', {
+    email: user.email,
+    password: user.password
+  })
 }
 
 function logout(token) {

@@ -65,7 +65,8 @@ export default {
     tag_select_mixin
   ],
   props: [
-    'project'
+    'project',
+    'status'
   ],
   data() {
     return {
@@ -107,7 +108,9 @@ export default {
     },
     add_task() {
       this.task.owner = this.$q.cookies.get('user').id;
-      this.task.project = this.$props.project.project_id
+      this.task.project = this.$props.project
+      this.task.status = this.$props.status
+      console.log(this.$props)
       this.add_task_loading = true
       TaskService
         .add_task(this.task)
@@ -126,7 +129,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$props.project)
     this.get_members();
   }
 };

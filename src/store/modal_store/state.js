@@ -8,5 +8,7 @@ export default function () {
     view_project_modal: false,
     view_task_modal: false,
     view_task_data: false,
+    
+    new_status_modal: false,
   }
 }

@@ -3,7 +3,7 @@ import {Cookies} from "quasar";
 
 export default () => {
   return axios.create({
-    baseURL: 'https://promanback.herokuapp.com/api/v1/',
+    baseURL: 'http://51.195.19.165:9090/api/v1/',
     headers: {
       Authorization: 'Token ' + Cookies.get('token')
     }

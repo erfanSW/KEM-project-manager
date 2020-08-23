@@ -9,7 +9,7 @@
       <q-card-section class="card-title text-white q-mt-md">
         <div class="row a-pa-md q-mb-lg">
           <div class="col-6 q-mr-xl">
-            <q-input type="text" label="نام کاربری" v-model="user.email" stack-label></q-input>
+            <q-input type="text" label="ایمیل" v-model="user.email" stack-label></q-input>
             <q-input class="q-mt-sm" type="password" label="کلمه عبور" v-model="user.password" stack-label></q-input>
             <q-checkbox
               class="text-indigo-5 q-mt-lg"
@@ -52,10 +52,6 @@ export default {
     };
   },
   methods: {
-    // ...mapActions('auth', [
-    //   'login',
-    //   'logout'
-    // ]),
     back() {
       this.$router.push({
         name: 'main'

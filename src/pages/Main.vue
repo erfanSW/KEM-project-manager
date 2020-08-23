@@ -12,9 +12,9 @@
     />
     <div class="header">
       <div class="q-pa-lg row headerbar">
-        <q-btn flat class="text-blue-grey-8">رزومه ها</q-btn>
-        <q-btn flat class="text-blue-grey-8">پلن ها</q-btn>
-        <q-btn flat class="bg-indigo-5 text-white">اسپانسر پرومن شوید!</q-btn>
+        <q-btn flat class="text-blue-grey-8 hide-in-mobile">رزومه ها</q-btn>
+        <q-btn flat class="text-blue-grey-8 hide-in-mobile">پلن ها</q-btn>
+        <q-btn flat class="bg-indigo-5 text-white hide-in-mobile">اسپانسر پرومن شوید!</q-btn>
         <q-btn
           flat
           v-if="$q.cookies.get('token')"
@@ -22,35 +22,36 @@
           class="text-blue-grey-8"
         >داشبورد</q-btn>
         <q-btn flat v-if="!$q.cookies.get('token')" :to="{name:'signup'}">ثبت نام</q-btn>
+        <q-btn flat v-if="!$q.cookies.get('token')" :to="{name:'login'}">ورود</q-btn>
         <q-btn flat v-else @click="_logout" class="text-blue-grey-8">خروج</q-btn>
       </div>
     </div>
-    <!-- <q-btn flat outline class=" text-indigo absolute-center q-mt-xl">همین حالا تیم فضایی خودت رو بساز!</q-btn> -->
     <q-btn
       outline
       color="indigo-5"
-      class="absolute-center q-mt-xl"
+      id="blog_btn"
+      class="q-mt-xl"
       label="همین الان تجربیات دیگران رو بخون!"
       :to="{path:'blog'}"
     />
 
     <div class="container">
-      <div class="row" style="margin-bottom: 100px">
-        <div class="col-6 text-h6" :class="{whiteboard:firstwb}">
+      <div class="row">
+        <div
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-h6 text-justify"
+          :class="{whiteboard:firstwb}"
+        >
           زمان بندی پروژه ها را به خوبی مدیریت کنید
-          <div>
-            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-              متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
-              حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
-              در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
-              نخورید و اوه اوه باشید.
-              <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;" />
+          <div class="text-caption">
+            لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد.
+            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-lg">
+              <q-btn label="ایجاد پروژه" class="bg-indigo-5 text-white" style="width: 130px;" />
             </div>
           </div>
         </div>
         <img
           src="../assets/undraw_dev_productivity_umsq.svg"
-          class="col-6"
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-mt-lg"
           style="height:200px"
           :class="{whiteboard:firstwb}"
           width="200px"
@@ -58,57 +59,54 @@
           alt
         />
       </div>
+
       <div class="row q-mt-xl">
-        <img
-          src="../assets/undraw_selecting_team_s098.svg"
-          class="col-6"
-          :class="{whiteboard:secondwb}"
-          height="100px"
-          style="width: 400px;"
-          alt
-        />
-        <div class="col-6 text-h6" style="text-align:left;" :class="{whiteboard:secondwb}">
+        <div
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-h6 text-justify"
+          :class="{whiteboard:firstwb}"
+        >
           تیم بسازید و مدیریت پروژه را در قالب تیم تجربه کنید
-          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-            متخصصین پرومن با بهره گیری از جدیدترین متودولوژی مدیریت زمان بندی توانسته اند اثری خلق کنند که تمامی افراد
-            حاضر در امامزاده یعقوب دست به دهان نظاره گر هنرنمایی این بزرگواران هستند
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه
-            نخورید و اوه اوه باشید.
-            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;" />
+          <div class="text-caption">
+            لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد.
+            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-lg">
+              <q-btn label="ایجاد پروژه" class="bg-indigo-5 text-white" style="width: 130px;" />
+            </div>
           </div>
         </div>
+        <img
+          src="../assets/undraw_selecting_team_s098.svg"
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-mt-lg"
+          style="height:200px"
+          :class="{whiteboard:firstwb}"
+          width="200px"
+          height="200px"
+          alt
+        />
       </div>
-      <div class="row q-mt-xl">
-        <div class="col-6 text-h6 q-mt-xl" :class="{whiteboard:thirdwb}">
-          آخرین کامیت هارا بررسی کنید
-          <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-sm">
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
-            و اوه اوه باشید.
-            در این گروه یاد میگیرید بخورید و بیاشامید ولی اصراف نکنید ولی همچنان میتوانید نخورید و نیاشامید و گوه نخورید
-            و اوه اوه باشید.
-            <q-btn label="ایجاد تیم" class="bg-indigo-5 text-white" style="width: 130px;" />
+
+      <div class="row" style="margin-bottom: 100px">
+        <div
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-h6 text-justify"
+          :class="{whiteboard:firstwb}"
+        >
+          برای خود پروفایل و رزومه
+          بسازید
+          <div class="text-caption">
+            لورم ایپسوم یا طرح‌نما به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد.
+            <div style="font-size: 14px;" class="text-blue-grey-8 q-mt-lg">
+              <q-btn label="ایجاد پروژه" class="bg-indigo-5 text-white" style="width: 130px;" />
+            </div>
           </div>
         </div>
         <img
           src="../assets/undraw_hacker_mindset_gjwq.svg"
-          class="col-6 q-mt-xl"
-          :class="{whiteboard:thirdwb}"
+          class="col-xs-12 col-sm-6 col-md-6 col-lg-6 q-mt-lg"
+          style="height:200px"
+          :class="{whiteboard:firstwb}"
           width="200px"
+          height="200px"
           alt
         />
-      </div>
-      <div class="row q-mt-xl">
-        <img
-          src="../assets/undraw_personal_info_0okl.svg"
-          class="col-6"
-          :class="{whiteboard:fourthwb}"
-          width="200px"
-          alt
-        />
-        <div class="col-6 text-h6" style="text-align:left;" :class="{whiteboard:fourthwb}">
-          برای خود پروفایل و رزومه
-          بسازید
-        </div>
       </div>
     </div>
   </div>
@@ -141,7 +139,9 @@ export default {
     },
     ...mapActions("account", ["logout"]),
     _logout() {
-      this.logout();
+      this.$q.cookies.set("user", null);
+      this.$q.cookies.set("token", null);
+      this.$router.go(0)
     },
     startvideo() {
       this.grey_overlay = true;
@@ -174,16 +174,24 @@ export default {
 
 <style scoped>
 .container {
-  margin-right: 300px;
-  margin-left: 300px;
   margin-top: 200px;
+  margin: 200px;
 }
 
-@media only screen and(max-width: 800px) {
+@media only screen and (max-width: 600px) {
   .container {
-    margin-right: 0px;
-    margin-left: 0px;
+    margin: 100px 0px;
+    padding: 10px;
   }
+
+  .hide-in-mobile {
+    display: none;
+  }
+}
+
+#blog_btn {
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .arrow {

@@ -31,9 +31,13 @@ export default {
 .task-container {
   height: 80px !important;
   width: 300px;
+  resize: both;
+
 }
 .task-container:hover {
   cursor: pointer;
+  resize: both;
+
 }
 .card-title {
   /* background-image: linear-gradient(to left, #c9ffbf, #ffafbd) !important; */

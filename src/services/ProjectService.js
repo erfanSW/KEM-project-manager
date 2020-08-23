@@ -2,15 +2,15 @@ import Api from './Api'
 
 export default {
   get() {
-    return Api().get('projects')
+    return Api().get('project')
   },
   post(data) {
-    return Api().post('projects/', data)
+    return Api().post('project/', data)
   },
   put(data) {
-    return Api().put(`projects/${data.id}/`, data)
+    return Api().put(`project/${data.id}/`, data)
   },
   delete(id) {
-    return Api().delete(`projects/${id}/`)
+    return Api().delete(`project/${id}/`)
   },
 }
